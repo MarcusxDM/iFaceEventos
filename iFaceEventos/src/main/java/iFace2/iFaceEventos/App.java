@@ -99,6 +99,12 @@ public class App {
 		
 	}
 	public static User getUserByName(String name){
+		/*
+		 * Creates a List from all Users in DB
+		 * if the given name is in the List
+		 * User object is returned, if not, null
+		 * returned.
+		 */
 		List<User> userList = null;
 		int found = 0;
 		User userFound = null;
@@ -126,40 +132,47 @@ public class App {
 	}
 
 	private static void createEvent() {
-			int numGuests = 0;
-			User guestUser = null;
-			Event newEvent;
-			String name, description, guestName;
-			int entry;
-			Scanner intScan = new Scanner(System.in);
-			Scanner stringScan = new Scanner(System.in);
-			System.out.println("#######################\nQual sera o nome do seu Evento?\n");
-			name = stringScan.nextLine();
+		/*
+		 * Creates Event object with desired information. 
+		 */
+		int numGuests = 0;
+		User guestUser = null;
+		Event newEvent;
+		String name, description, guestName;
+		int entry;
+		Scanner intScan = new Scanner(System.in);
+		Scanner stringScan = new Scanner(System.in);
+			
+		System.out.println("#######################\nQual sera o nome do seu Evento?\n");			
+		name = stringScan.nextLine();
 				
-			System.out.println("Digite informações de seu novo Evento:\n");
-			description = stringScan.nextLine();
+		System.out.println("Digite informações de seu novo Evento:\n");
+		description = stringScan.nextLine();
 			
-			newEvent = new Event(name, description, mainUser, now);
+		newEvent = new Event(name, description, mainUser, now);
 			
-			System.out.println("Digite quantos convidados deseja adicionar no momento:\n");
-			description = intScan.nextLine();
+		System.out.println("Digite quantos convidados deseja adicionar no momento:\n");
+		description = intScan.nextLine();
 			
-			for (int i=1; i>=numGuests; i++){
-				System.out.println("Qual o nome do "+i+"o convidado?\n");
-				guestName = stringScan.nextLine();
-				guestUser = getUserByName(guestName);
-				newEvent.getGuests().add(guestUser);
-			}
+		for (int i=1; i>=numGuests; i++){
+			System.out.println("Qual o nome do "+i+"o convidado?\n");
+			guestName = stringScan.nextLine();
+			guestUser = getUserByName(guestName);
+			newEvent.getGuests().add(guestUser);
+		}
 			
 			
-			saveEvent(newEvent);
-			System.out.println("Comunidade criada!\n\n\n");
+		saveEvent(newEvent);
+		System.out.println("Evento criada!\n\n\n");
 					
 	}
 
 
 
 	private static void saveEvent(Event newEvent) {
+		/*
+		 * Saves Event object in Database.
+		 */
 		Session session = sessionFactory.openSession();
 
 		try {
