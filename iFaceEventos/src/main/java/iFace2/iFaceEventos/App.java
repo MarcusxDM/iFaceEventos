@@ -81,6 +81,43 @@ public class App {
 						
 						// create and persists event
 						if (entry == 1){
+							try {
+								scan = new Scanner(System.in);
+
+								Event event = new Event();
+								User user = uEManager.getUserById(uId);
+								
+								event.setHost(user);							
+								System.out.print("EVENT NAME: ");
+								event.setName(input.nextLine());
+								System.out.print("EVENT DESCRIPTION: ");
+								event.setDescription(input.nextLine());
+								System.out.print("DATE (DD/MM/AAAA): ");
+								event.setDate(input.nextLine());
+								uEManager.verifyDate(event.getDate());
+								System.out.print("HOUR (HH:mm): ");
+								event.setHour(input.nextLine());
+								uEManager.verifyHour(event.getHour());
+
+								uEManager.verifyEventEmptyField(event);
+								uEManager.verifyEventName(event.getName());
+								uEManager.saveEvent(event);
+								
+								// associates the event and the user
+								user.addManagedEvents(event);
+								user.addAssociatedEvents(event);
+								event.addGuests(user);
+								
+								uEManager.updateUser(user);
+								
+								System.out.println("Your event is now registered!");
+								System.out.println("-------------------------------------------------");
+
+							} catch (EventAlreadyExistsException e) {
+								System.err.println(e);
+							} catch (EmptyFieldException e) {
+								System.err.println(e);
+							}
 
 						}
 						// manage event
@@ -146,10 +183,7 @@ public class App {
 					System.err.println("Bye! See you soon!");
 					System.err.println("-------------------------------------------------");
 					break;
-				}
-
-				
-
+				}				
 			} catch (InputMismatchException e) {
 				System.err.println("You shoud've typed a number\n");
 			}
