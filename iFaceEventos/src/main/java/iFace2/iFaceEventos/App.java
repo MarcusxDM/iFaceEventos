@@ -3,6 +3,7 @@ package iFace2.iFaceEventos;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,50 +17,143 @@ import models.Event;
 import models.User;
 import management.UserEventManager;
 
+import exceptionsFile.*;
+
 public class App {
 	public static Date now;
+	private static Scanner input;
+	private static Scanner scan;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		int choice = 0;
+		int uId = 0;
+		int log = 0;
+		int entry = 0;
+
 		now = new Date();
 		UserEventManager uEManager = new UserEventManager();
-		
-		
-		System.out.println("1 - Criar Evento");
-		System.out.println("2 - Gerenciar Evento");
-		System.out.println("3 - Pesquisar Evento");
-		System.out.println("4 - Ver Calendario");
-		System.out.println("5 - Sair");
 
-		Scanner integerScan = new Scanner(System.in);
-		int entry = integerScan.nextInt();
+		while (choice != 3) {
+			try {
+				// first menu
+				System.out.print("Welcome to iFace!: ");
+				System.out.print("1. Login | ");
+				System.out.print("2. Register now | ");
+				System.out.print("3. Close iFace\n");
+				System.out.print("-------------------------------------------------");
 
-		switch (entry) {
-		case 1:
-			// do something
-			break;
-		case 2:
-			uEManager.manageEvent();
-			break;
-		case 3:
-			uEManager.searchEvent();
-			break;
-		case 4:
-			uEManager.viewCalendar();
-			break;
-		case 5:
-			break;
+				input = new Scanner(System.in);
+				choice = input.nextInt();
+				input.nextLine();
+
+				// login
+				if (choice == 1) {				
+					try {
+						String user;
+						String pass;
+
+						System.out.print("USERNAME: ");
+						user = input.nextLine();
+						System.out.print("PASSWORD: ");
+						pass = input.nextLine();
+
+						if (uEManager.loginCheck(user, pass) != -1) {
+							System.out.println("You are now logged in!");
+							System.out.println("-------------------------------------------------");
+							uId = uEManager.loginCheck(user, pass);
+							log = 1;
+						}
+					} catch (InvalidDataException e) {
+						System.err.println(e);
+						log = 0;
+					}
+					while (entry != 5 && log == 1) {
+						
+						System.out.print("1. Create Event | ");
+						System.out.print("2. Manage Event | ");
+						System.out.print("3. Search Event | ");
+						System.out.print("4. See Calendar | ");
+						System.out.print("5. Log Out\n");
+						System.out.print("-------------------------------------------------");
+
+						Scanner integerScan = new Scanner(System.in);
+						entry = integerScan.nextInt();
+						
+						// create and persists event
+						if (entry == 1){
+
+						}
+						// manage event
+						else if (entry == 2){
+							uEManager.manageEvent();
+							break;
+						}
+						// search event
+						else if (entry == 3){
+
+							uEManager.searchEvent();
+							break;	
+						}
+						// view calendar
+						else if (entry == 4){
+							uEManager.viewCalendar();
+							break;
+						}
+						// logout
+						else if (entry == 5){
+							log = 0;
+							break;
+						}
+						
+					}
+				}
+				
+				// register a new user
+				else if (choice == 2) {
+					try {
+						scan = new Scanner(System.in);
+
+						User user = new User();
+
+						System.out.print("NAME: ");
+						user.setName(input.nextLine());
+						System.out.print("USERNAME: ");
+						user.setLogin(input.nextLine());
+						System.out.print("EMAIL: ");
+						user.setEmail(input.nextLine());
+						System.out.print("PASSWORD: ");
+						user.setPassword(input.nextLine());
+
+						uEManager.verifyUserEmptyField(user);
+
+						uEManager.verifyUserName(user.getLogin());
+						uEManager.addUser(user);
+						
+						uId = user.getId();
+
+						System.out.println("You are now registered!");
+						System.out.println("-------------------------------------------------");
+
+					} catch (UsernameAlreadyExistsException e) {
+						System.err.println(e);
+					} catch (EmptyFieldException e) {
+						System.err.println(e);
+					}
+				}
+				
+				// closing the system
+				else if (choice == 3) {
+					System.err.println("Bye! See you soon!");
+					System.err.println("-------------------------------------------------");
+					break;
+				}
+
+				
+
+			} catch (InputMismatchException e) {
+				System.err.println("You shoud've typed a number\n");
+			}
 		}
-	
-		
-		}
-		
 
-	
-	
-
-	
-
-
-
-
+	}
 }

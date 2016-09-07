@@ -44,8 +44,6 @@ public class User {
 	private String name;
 	@Column
 	private String email;
-	@Column
-	private int age;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "guests")
 	public List<Event> associatedEvents = new ArrayList<Event>();
@@ -55,12 +53,11 @@ public class User {
 	
 	public User(){}
 	
-	public User(String name, String password, String email, String login, int age) {
+	public User(String name, String password, String email, String login) {
 		this.login = login;
 		this.name = name;
 		this.password = password;
 		this.email = email;
-		this.age = age;
 	}
 	
 	
@@ -88,18 +85,6 @@ public class User {
 	public void setLogin(String login) {
 		this.login = login;
 	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	/*public int calculateAge(LocalDate birth, LocalDate now) {
-	    if ((birth != null) && (now != null)) {
-	        return Period.between(birth, now).getYears();
-	    } else {
-	        return 0;
-	    }
-	}*/
 
 	public int getId() {
 		return id;
@@ -132,8 +117,14 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
 
-	public int getAge() {
-		return age;
-	}
+	/*public int calculateAge(LocalDate birth, LocalDate now) {
+	    if ((birth != null) && (now != null)) {
+	        return Period.between(birth, now).getYears();
+	    } else {
+	        return 0;
+	    }
+	}*/
+
 }

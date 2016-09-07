@@ -51,7 +51,7 @@ public class UserEventManager {
 		}
 	}
 
-	public void updateInstance(User instance) {
+	public void updateUser(User instance) {
 		session = sessionFactory.openSession();
 
 		try {
@@ -202,6 +202,71 @@ public class UserEventManager {
 		} finally {
 			session.close();
 		}
+	}
+	
+	public Event getEventById(int id) throws Exception {
+		session = sessionFactory.openSession();
+
+		Query query = session.createQuery("from Event where id = :id");
+		query.setParameter("id", id);
+
+		Event e = (Event) query.uniqueResult();
+
+		session.close();
+
+		if (e == null) {
+			throw new EventNotFoundException("This event was not found.\n");
+		}
+		return e;
+	}
+	
+	public void verifyEventName(String name) throws Exception {
+		session = sessionFactory.openSession();
+
+		Query query = session.createQuery("from Event where name = :name");
+		query.setParameter("name", name);
+
+		Event e = (Event) query.uniqueResult();
+
+		session.close();
+
+		if (e != null) {
+			throw new UsernameAlreadyExistsException("This event name is already taken.\n");
+		}
+	}
+	
+	public void verifyEventEmptyField(Event event) throws Exception {
+		if (event.getName().equals("") || event.getDescription().equals("") || event.getDate().equals("")) {
+			throw new EmptyFieldException("You left an empty field!\n");
+		}
+	}
+	
+	public Event getEventByName(String name) {
+		List<Event> eventList = null;
+		int found = 0;
+		Event eventFound = null;
+
+		session = sessionFactory.openSession();
+
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery("from Event");
+			eventList = query.list();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		} finally {
+			session.close();
+		}
+		for (Event e : eventList) {
+			if (e.getName().equals(name)) {
+				found = 1;
+				eventFound = e;
+				System.out.println("User Found.\n");
+			}
+		}
+		return eventFound;
 	}
 	
 //	private static void createEvent() {
