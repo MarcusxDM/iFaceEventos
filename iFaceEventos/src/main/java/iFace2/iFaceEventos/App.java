@@ -1,11 +1,9 @@
 package iFace2.iFaceEventos;
 
 import java.time.LocalDate;
-
-
-
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,174 +15,145 @@ import org.hibernate.cfg.Configuration;
 
 import models.Event;
 import models.User;
+import management.UserEventManager;
 
-/**
- * created by Vinicius
- *
- */
+import exceptionsFile.*;
+
 public class App {
-	public static User mainUser;
 	public static Date now;
-	public static long mainUserId = 1;
-	public static final SessionFactory sessionFactory = new Configuration()
-			.configure("META-INF/hibernate.cfg.xml").buildSessionFactory();;
+	private static Scanner input;
+	private static Scanner scan;
 
 	public static void main(String[] args) throws Exception {
+		int choice = 0;
+		int uId = 0;
+		int log = 0;
+		int entry = 0;
+
 		now = new Date();
-		
-		
-		//mainUser = new User("Dono", "senha", "email", "login", 20);
-		
-		userMainScreen();
-		
-		}
-	
-	
+		UserEventManager uEManager = new UserEventManager();
 
-	private static void userMainScreen(){
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			mainUser =  (User) session.get(User.class, mainUserId);
-			session.getTransaction().commit();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			session.close();
-		}
-		
-		System.out.println("#########  Bem vindo, " + mainUser.getName()
-				+ "! O que deseja fazer?   ########\n");
-		
-		System.out.println("1 - Criar Evento");
-		System.out.println("2 - Gerenciar Evento");
-		System.out.println("3 - Pesquisar Evento");
-		System.out.println("4 - Ver Calendario");
-		System.out.println("5 - Sair");
+		while (choice != 3) {
+			try {
+				// first menu
+				System.out.print("Welcome to iFace!: ");
+				System.out.print("1. Login | ");
+				System.out.print("2. Register now | ");
+				System.out.print("3. Close iFace\n");
+				System.out.print("-------------------------------------------------");
 
-		Scanner integerScan = new Scanner(System.in);
-		int entry = integerScan.nextInt();
+				input = new Scanner(System.in);
+				choice = input.nextInt();
+				input.nextLine();
 
-		switch (entry) {
-		case 1:
-			createEvent();
-			break;
-		case 2:
-			manageEvent();
-			break;
-		case 3:
-			searchEvent();
-			break;
-		case 4:
-			viewCalendar();
-			break;
-		case 5:
-			System.exit(0);
-		}
-	}
+				// login
+				if (choice == 1) {				
+					try {
+						String user;
+						String pass;
 
-	private static void viewCalendar() {
-		// TODO Auto-generated method stub
-		
-	}
+						System.out.print("USERNAME: ");
+						user = input.nextLine();
+						System.out.print("PASSWORD: ");
+						pass = input.nextLine();
 
-	private static void searchEvent() {
-		// TODO Auto-generated method stub
-		
-	}
+						if (uEManager.loginCheck(user, pass) != -1) {
+							System.out.println("You are now logged in!");
+							System.out.println("-------------------------------------------------");
+							uId = uEManager.loginCheck(user, pass);
+							log = 1;
+						}
+					} catch (InvalidDataException e) {
+						System.err.println(e);
+						log = 0;
+					}
+					while (entry != 5 && log == 1) {
+						
+						System.out.print("1. Create Event | ");
+						System.out.print("2. Manage Event | ");
+						System.out.print("3. Search Event | ");
+						System.out.print("4. See Calendar | ");
+						System.out.print("5. Log Out\n");
+						System.out.print("-------------------------------------------------");
 
-	private static void manageEvent() {
-		// TODO Auto-generated method stub
-		
-	}
-	public static User getUserByName(String name){
-		/*
-		 * Creates a List from all Users in DB
-		 * if the given name is in the List
-		 * User object is returned, if not, null
-		 * returned.
-		 */
-		List<User> userList = null;
-		int found = 0;
-		User userFound = null;
-		Session session = sessionFactory.openSession();
-		try {
-			session.beginTransaction();
-			Query query = session.createQuery("from User");
-			userList = query.list();
-			session.getTransaction().commit();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			session.close();
-		}
-		for (User u : userList) {
-			if (u.getName().equals(name)) {
-				found = 1;
-				userFound = u;
-				System.out.println("Usuario Encontrado.\n");
+						Scanner integerScan = new Scanner(System.in);
+						entry = integerScan.nextInt();
+						
+						// create and persists event
+						if (entry == 1){
+
+						}
+						// manage event
+						else if (entry == 2){
+							uEManager.manageEvent();
+							break;
+						}
+						// search event
+						else if (entry == 3){
+
+							uEManager.searchEvent();
+							break;	
+						}
+						// view calendar
+						else if (entry == 4){
+							uEManager.viewCalendar();
+							break;
+						}
+						// logout
+						else if (entry == 5){
+							log = 0;
+							break;
+						}
+						
+					}
 				}
-			}
-		return userFound;
-		
-	}
-
-	private static void createEvent() {
-		/*
-		 * Creates Event object with desired information. 
-		 */
-		int numGuests = 0;
-		User guestUser = null;
-		Event newEvent;
-		String name, description, guestName;
-		int entry;
-		Scanner intScan = new Scanner(System.in);
-		Scanner stringScan = new Scanner(System.in);
-			
-		System.out.println("#######################\nQual sera o nome do seu Evento?\n");			
-		name = stringScan.nextLine();
 				
-		System.out.println("Digite informações de seu novo Evento:\n");
-		description = stringScan.nextLine();
-			
-		newEvent = new Event(name, description, mainUser, now);
-			
-		System.out.println("Digite quantos convidados deseja adicionar no momento:\n");
-		description = intScan.nextLine();
-			
-		for (int i=1; i>=numGuests; i++){
-			System.out.println("Qual o nome do "+i+"o convidado?\n");
-			guestName = stringScan.nextLine();
-			guestUser = getUserByName(guestName);
-			newEvent.getGuests().add(guestUser);
+				// register a new user
+				else if (choice == 2) {
+					try {
+						scan = new Scanner(System.in);
+
+						User user = new User();
+
+						System.out.print("NAME: ");
+						user.setName(input.nextLine());
+						System.out.print("USERNAME: ");
+						user.setLogin(input.nextLine());
+						System.out.print("EMAIL: ");
+						user.setEmail(input.nextLine());
+						System.out.print("PASSWORD: ");
+						user.setPassword(input.nextLine());
+
+						uEManager.verifyUserEmptyField(user);
+
+						uEManager.verifyUserName(user.getLogin());
+						uEManager.addUser(user);
+						
+						uId = user.getId();
+
+						System.out.println("You are now registered!");
+						System.out.println("-------------------------------------------------");
+
+					} catch (UsernameAlreadyExistsException e) {
+						System.err.println(e);
+					} catch (EmptyFieldException e) {
+						System.err.println(e);
+					}
+				}
+				
+				// closing the system
+				else if (choice == 3) {
+					System.err.println("Bye! See you soon!");
+					System.err.println("-------------------------------------------------");
+					break;
+				}
+
+				
+
+			} catch (InputMismatchException e) {
+				System.err.println("You shoud've typed a number\n");
+			}
 		}
-			
-			
-		saveEvent(newEvent);
-		System.out.println("Evento criada!\n\n\n");
-					
-	}
 
-
-
-	private static void saveEvent(Event newEvent) {
-		/*
-		 * Saves Event object in Database.
-		 */
-		Session session = sessionFactory.openSession();
-
-		try {
-			session.beginTransaction();
-			session.save(newEvent);
-			session.getTransaction().commit();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			session.close();
-		}	
-		
 	}
 }
