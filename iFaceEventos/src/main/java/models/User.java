@@ -60,8 +60,6 @@ public class User {
 		this.email = email;
 	}
 	
-	
-
 	public List<Event> getAssociatedEvents() {
 		return associatedEvents;
 	}
@@ -76,6 +74,22 @@ public class User {
 
 	public void setManagedEvents(List<Event> managedEvents) {
 		this.managedEvents = managedEvents;
+	}
+	
+	public void addManagedEvents (Event event){
+		this.managedEvents.add(event);
+	}
+	
+	public void removeManagedEvents (Event event){
+		this.managedEvents.remove(event);
+	}
+	
+	public void addAssociatedEvents (Event event){
+		this.associatedEvents.add(event);
+	}
+	
+	public void removeAssociatedEvents (Event event){
+		this.associatedEvents.remove(event);
 	}
 
 	public String getLogin() {

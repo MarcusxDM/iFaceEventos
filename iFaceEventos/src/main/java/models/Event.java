@@ -3,6 +3,7 @@
  */
 package models;
 
+import java.util.ArrayList;
 /**
  * @author Vinicius
  *
@@ -29,11 +30,18 @@ public class Event {
 	@Column
 	private String description;
 	@Column
-	private Date date;
+	private String date;
+	@Column
+	private String hour;
 	
 	@ManyToMany
 	@JoinTable(name = "user_event", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+<<<<<<< HEAD
+	protected List<User> guests = new ArrayList<User>();
+;
+=======
 	protected List<User> guests;
+>>>>>>> refs/remotes/origin/master
 
 	@ManyToOne
 	protected User host;
@@ -41,11 +49,12 @@ public class Event {
 		public Event() {
 	}
 	
-	public Event(String name, String description, User host, Date date) {
+	public Event(String name, String description, User host, String date, String hour) {
 		this.name = name;
 		this.description = description;
 		this.host = host;
 		this.date = date;
+		this.hour = hour;
 	}
 
 	public int getId() {
@@ -80,13 +89,22 @@ public class Event {
 		this.description = description;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	public String getHour() {
+		return hour;
+	}
+
+	public void setHour(String hour) {
+		this.hour = hour;
+	}
+
 
 	public List<User> getGuests() {
 		return guests;
@@ -102,6 +120,14 @@ public class Event {
 
 	public void setHost(User host) {
 		this.host = host;
+	}
+	
+	public void addGuests (User user){
+		this.guests.add(user);
+	}
+	
+	public void removeGuestsEvents (User user){
+		this.guests.remove(user);
 	}
 
 }

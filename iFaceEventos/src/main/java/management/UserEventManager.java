@@ -4,6 +4,9 @@ import models.Event;
 import models.User;
 import exceptionsFile.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -301,6 +304,31 @@ public class UserEventManager {
 //					
 //	}
 	
+	public static boolean verifyDate(String date) {
+		SimpleDateFormat dtf = new SimpleDateFormat("dd/MM/yyyy");
+		dtf.setLenient(false);
+		try {
+			dtf.parse(date);
+		} catch (ParseException e) {
+			System.err.println("Invalid Format.");
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean verifyHour (String hour) {
+		try {
+			Calendar data = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+			sdf.setLenient(false);
+			data.setTime(sdf.parse(hour));
+			sdf.parse(hour);
+		} catch (ParseException e) {
+			System.err.println("Invalid Format.");
+			return false;
+		}
+		return true;
+	}
 
 	// view
 	public static void viewCalendar() {
