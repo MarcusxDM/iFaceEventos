@@ -35,7 +35,7 @@ import java.util.Set;
 public class User {
 	@Id
 	@GeneratedValue
-	private long id;
+	protected int id;
 	@Column
 	private String password;
 	@Column
@@ -85,16 +85,13 @@ public class User {
 		return login;
 	}
 
-
 	public void setLogin(String login) {
 		this.login = login;
 	}
 
-
 	public void setAge(int age) {
 		this.age = age;
 	}
-
 
 	/*public int calculateAge(LocalDate birth, LocalDate now) {
 	    if ((birth != null) && (now != null)) {
@@ -104,11 +101,11 @@ public class User {
 	    }
 	}*/
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -139,5 +136,4 @@ public class User {
 	public int getAge() {
 		return age;
 	}
-
 }
