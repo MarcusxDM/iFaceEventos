@@ -6,8 +6,8 @@ import exceptionsFile.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,6 +23,7 @@ public class UserEventManager {
 	final SessionFactory sessionFactory = new Configuration().configure("./META-INF/hibernate.cfg.xml")
 			.buildSessionFactory();
 	Session session = threadLocal.get();
+	private static Scanner reader = new Scanner(System.in);
 
 	// Users
 	public void addUser(User instance) {
@@ -305,6 +306,7 @@ public class UserEventManager {
 //					
 //	}
 	
+	
 	public static boolean verifyDate(String date) {
 		SimpleDateFormat dtf = new SimpleDateFormat("dd/MM/yyyy");
 		dtf.setLenient(false);
@@ -392,9 +394,157 @@ public class UserEventManager {
 
 
 	}
-
-	public static void manageEvent() {
-		// TODO Auto-generated method stub
+	
+	public User searchUser(String name) {
+		/*
+		 * Search Events objects in Database
+		 */
+		
+		session = sessionFactory.openSession();
+		
+		session.beginTransaction();
+		User user = null;
+		try{
+		user = (User)session.createQuery("SELECT user FROM User user WHERE user.name= :name").setParameter("name", name).list().get(0);
+		}
+		catch(IndexOutOfBoundsException e){
+			System.out.println("Event not found");
+		}
+		session.close();
+		if (user == null) {
+			System.out.println("DEBUG User not found");
+			return null;
+		} else {
+			System.out.println("DEBUG User found");
+			return user;
+		}
+		
 
 	}
+	
+	public void manageEventMenu(Event event){
+		System.out.println("----------- Manage Event Menu -----------");
+		System.out.println("1. Add an user");
+		System.out.println("2. Edit event");
+		
+		try{
+			manageEventControl(event);
+		}catch(InputMismatchException e){
+			System.out.println("Invalid input. Please, try again");
+			reader.nextLine();
+		}
+		
+	}
+
+	public void manageEventControl(Event event) {
+		/*
+		 * Edit objects informations in Database
+		 */
+		
+		int choice = reader.nextInt();
+		
+		switch(choice){
+		
+		case 1:
+			//add an user
+			inviteUser(event);
+			break;
+		case 2:
+			//Edit event
+			editEventMenu(event);
+			break;
+		}
+
+	}
+	
+	public void editEventMenu (Event event) {
+		System.out.println("----------- Edit Event Menu -----------");
+		System.out.println("What do you want to change?");
+		System.out.println("1. Name");
+		System.out.println("2. Description");
+		System.out.println("3. Date");
+		System.out.println("4. Hour");
+		try{
+			editEventControl(event);
+		}catch(InputMismatchException e){
+			System.out.println("Invalid input. Please, try again");
+			reader.nextLine();
+		}
+		
+	}
+	
+	public void editEventControl (Event event){
+		/*
+		 * Edit objects informations in Database
+		 */
+		
+		int choice2 = reader.nextInt();
+		
+		switch(choice2){
+		
+		case 1:
+			System.out.println("Change event's name:");
+			String name = reader.next();
+			event.setName(name);
+			break;
+		case 2:
+			System.out.println("Change event's description:");
+			String description = reader.next();
+			event.setInfo(description);
+			break;
+		case 3:
+			System.out.println("Change event's date:");
+			String date = reader.next();
+			event.setDate(date);
+			break;
+		case 4:
+			System.out.println("Change event's hour:");
+			String hour = reader.next();
+			event.setHour(hour);
+			break;
+			
+		default:
+			System.out.println("Invalid input. Please, try again");
+		}
+		session = sessionFactory.openSession();
+		try{
+			session.beginTransaction();
+			session.update(event);
+			session.getTransaction().commit();
+		} catch(HibernateException e){
+			System.out.println("Error while updating event");
+		}finally{
+			session.close();
+			}	
+		}
+	
+	public void inviteUser (Event event){
+		System.out.println("Put the user's name: ");
+		String name = reader.next();
+		
+		User user = searchUser(name);
+		
+		if(user == null){
+			System.out.println("User not found");
+		} else{
+			user.addAssociatedEvents(event);
+			event.addGuests(user);
+			updateUser(user);
+			updateEvent(event);
+		}
+	}
+	
+	public void SeeManagedEvents(User user){
+		List<Event> managedEvents = user.getManagedEvents();
+		if(managedEvents.isEmpty()){
+			System.out.println("You have no managed events at this time.");
+			return;
+		}
+		for(Event event : managedEvents){
+			System.out.println(event.getId() + " " + event.getName());
+		}
+	}
+	
+	
+		
 }

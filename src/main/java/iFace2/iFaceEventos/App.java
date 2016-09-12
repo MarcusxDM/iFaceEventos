@@ -121,8 +121,17 @@ public class App {
 
 						}
 						// manage event
-						else if (entry == 2){
-							uEManager.manageEvent();
+						else if (entry == 2){			
+							scan = new Scanner(System.in);
+							
+							User user = uEManager.getUserById(uId);
+							
+							System.out.println("Pick an event by iD");
+							uEManager.SeeManagedEvents(user);
+							int id = input.nextInt();
+							Event event = uEManager.getEventById(id);
+							
+							uEManager.manageEventMenu(event);
 							break;
 						}
 						// search event
