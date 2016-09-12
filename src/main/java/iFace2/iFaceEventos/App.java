@@ -138,10 +138,9 @@ public class App {
 						else if (entry == 3){
 							scan = new Scanner(System.in);
 							System.out.println("Put the event's name:");
-							String name = input.nextLine();
-							
-							
-							uEManager.searchEvent(name);
+							String id = input.nextLine();
+
+							uEManager.searchEvent(id);
 							break;	
 						}
 						// view calendar
