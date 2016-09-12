@@ -6,6 +6,7 @@ import exceptionsFile.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
@@ -336,8 +337,59 @@ public class UserEventManager {
 
 	}
 
-	public static void searchEvent() {
-		// TODO Auto-generated method stub
+	public Event searchEvent(String name) {
+		/*
+		 * Search Events objects in Database
+		 */
+
+		session = sessionFactory.openSession();
+
+		session.beginTransaction();
+		Event event = null;
+		try{
+			List<Event> events = session.createQuery("SELECT event FROM Event event WHERE event.name like %:name%").setParameter("name", name).list();
+			if(events.size() > 1) {
+				System.out.println("We found these events with similar names please choose one by id:");
+				for (Event e : events) {
+					System.out.println("Id: " + e.getId() + " Name: " + e.getName());
+				}
+				Scanner scan = new Scanner(System.in);
+				int id = scan.nextInt();
+				try {
+					event = getEventById(id);
+				}
+				catch (Exception e) {
+					System.out.println("Event not Found!!");
+				}
+			} else {
+				event = events.get(0);
+			}
+//			event = (Event)session.createQuery("SELECT event FROM Event event WHERE event.name= :name").setParameter("name", name).list();
+			System.out.println("Name: " + event.getName());
+			System.out.println("Description: " + event.getDescription());
+			System.out.println("Host: " + event.getHost());
+			System.out.println("Date: " + event.getDate());
+			System.out.println("Hour: " + event.getHour());
+			if(event.getGuests() != null) {
+				List<User> guests = event.getGuests();
+				System.out.println("Guests: ");
+				for(User user : guests) {
+					System.out.println(user.getName());
+				}
+			}
+		}
+		catch(IndexOutOfBoundsException e){
+			System.out.println("Event not found");
+		}
+		session.close();
+		if (event == null) {
+			System.out.println("DEBUG Event not found");
+			return null;
+		} else {
+			System.out.println("DEBUG Event found");
+			return event;
+		}
+
 
 	}
 

@@ -127,8 +127,11 @@ public class App {
 						}
 						// search event
 						else if (entry == 3){
+							scan = new Scanner(System.in);
+							System.out.println("Put the event's name:");
+							String id = input.nextLine();
 
-							uEManager.searchEvent();
+							uEManager.searchEvent(id);
 							break;	
 						}
 						// view calendar
