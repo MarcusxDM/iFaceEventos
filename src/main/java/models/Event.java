@@ -36,8 +36,8 @@ public class Event {
 	
 	@ManyToMany
 	@JoinTable(name = "user_event", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	protected List<User> guests = new ArrayList<User>();
 
+	protected List<User> guests = new ArrayList<User>();
 
 	@ManyToOne
 	protected User host;
