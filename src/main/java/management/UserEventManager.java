@@ -343,13 +343,42 @@ public class UserEventManager {
 		/*
 		 * Search Events objects in Database
 		 */
-		
+
 		session = sessionFactory.openSession();
-		
+
 		session.beginTransaction();
 		Event event = null;
 		try{
-		event = (Event)session.createQuery("SELECT event FROM Event event WHERE event.name= :name").setParameter("name", name).list().get(0);
+			List<Event> events = session.createQuery("SELECT event FROM Event event WHERE event.name like %:name%").setParameter("name", name).list();
+			if(events.size() > 1) {
+				System.out.println("We found these events with similar names please choose one by id:");
+				for (Event e : events) {
+					System.out.println("Id: " + e.getId() + " Name: " + e.getName());
+				}
+				Scanner scan = new Scanner(System.in);
+				int id = scan.nextInt();
+				try {
+					event = getEventById(id);
+				}
+				catch (Exception e) {
+					System.out.println("Event not Found!!");
+				}
+			} else {
+				event = events.get(0);
+			}
+//			event = (Event)session.createQuery("SELECT event FROM Event event WHERE event.name= :name").setParameter("name", name).list();
+			System.out.println("Name: " + event.getName());
+			System.out.println("Description: " + event.getDescription());
+			System.out.println("Host: " + event.getHost());
+			System.out.println("Date: " + event.getDate());
+			System.out.println("Hour: " + event.getHour());
+			if(event.getGuests() != null) {
+				List<User> guests = event.getGuests();
+				System.out.println("Guests: ");
+				for(User user : guests) {
+					System.out.println(user.getName());
+				}
+			}
 		}
 		catch(IndexOutOfBoundsException e){
 			System.out.println("Event not found");
@@ -362,7 +391,7 @@ public class UserEventManager {
 			System.out.println("DEBUG Event found");
 			return event;
 		}
-		
+
 
 	}
 	
