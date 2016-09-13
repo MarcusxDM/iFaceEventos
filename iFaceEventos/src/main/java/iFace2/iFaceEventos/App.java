@@ -122,7 +122,14 @@ public class App {
 						}
 						// manage event
 						else if (entry == 2){
-							uEManager.manageEvent();
+							User user = uEManager.getUserById(uId);
+							
+							System.out.println("Pick an event by iD");
+							uEManager.seeManagedEvents(user);
+							int id = input.nextInt();
+							Event event = uEManager.getEventById(id);
+							
+							uEManager.manageEventMenu(event);
 							break;
 						}
 						// search event
@@ -188,7 +195,7 @@ public class App {
 					break;
 				}				
 			} catch (InputMismatchException e) {
-				System.err.println("You shoud've typed a number\n");
+				System.err.println("You should've typed a number\n");
 			}
 		}
 
