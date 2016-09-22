@@ -13,10 +13,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import management.UserEventManager;
 import models.Event;
 import models.User;
-import management.UserEventManager;
-
 import exceptionsFile.*;
 
 public class App {
