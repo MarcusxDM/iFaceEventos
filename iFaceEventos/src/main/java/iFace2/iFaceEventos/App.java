@@ -122,13 +122,23 @@ public class App {
 						}
 						// manage event
 						else if (entry == 2){
-							uEManager.manageEvent();
+							User user = uEManager.getUserById(uId);
+							
+							System.out.println("Pick an event by iD");
+							uEManager.seeManagedEvents(user);
+							int id = input.nextInt();
+							Event event = uEManager.getEventById(id);
+							
+							uEManager.manageEventMenu(event);
 							break;
 						}
 						// search event
 						else if (entry == 3){
+							scan = new Scanner(System.in);
+							System.out.println("Put the event's name:");
+							String id = input.nextLine();
 
-							uEManager.searchEvent();
+							uEManager.searchEvent(id);
 							break;	
 						}
 						// view calendar
@@ -185,7 +195,7 @@ public class App {
 					break;
 				}				
 			} catch (InputMismatchException e) {
-				System.err.println("You shoud've typed a number\n");
+				System.err.println("You should've typed a number\n");
 			}
 		}
 
