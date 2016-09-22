@@ -1,17 +1,8 @@
-/**
- * 
- */
 package models;
 
 import java.util.ArrayList;
-/**
- * @author Vinicius
- *
- */
-import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,27 +15,23 @@ import javax.persistence.ManyToOne;
 public class Event {
 	@Id
 	@GeneratedValue
-	private int id;
-	@Column
-	private String name;
-	@Column
-	private String description;
-	@Column
-	private String date;
-	@Column
-	private String hour;
-	
+	protected int id;
+	public String name;
+	public String description;
+	public String date;
+	public String hour;
+
 	@ManyToMany
 	@JoinTable(name = "user_event", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-	protected List<User> guests = new ArrayList<User>();
-
+	public List<User> guests = new ArrayList<User>();
 
 	@ManyToOne
 	protected User host;
 
-		public Event() {
+	public Event() {
+
 	}
-	
+
 	public Event(String name, String description, User host, String date, String hour) {
 		this.name = name;
 		this.description = description;
@@ -92,7 +79,7 @@ public class Event {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
+
 	public String getHour() {
 		return hour;
 	}
@@ -100,7 +87,6 @@ public class Event {
 	public void setHour(String hour) {
 		this.hour = hour;
 	}
-
 
 	public List<User> getGuests() {
 		return guests;
@@ -117,13 +103,9 @@ public class Event {
 	public void setHost(User host) {
 		this.host = host;
 	}
-	
-	public void addGuests (User user){
+
+	public void addGuests(User user) {
 		this.guests.add(user);
-	}
-	
-	public void removeGuestsEvents (User user){
-		this.guests.remove(user);
 	}
 
 }
