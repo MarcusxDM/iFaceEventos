@@ -377,7 +377,7 @@ public class UserEventManager {
 			System.out.println("You have no managed events at this time.");
 			return;
 		} else {
-			System.out.println("Choose an Event by ID: ");
+			System.out.println("These are the events you are currently managing: ");
 			for (Event event : managedEvents) {
 				System.out.print("Event name: ");
 				System.out.println(event.getName());
@@ -385,7 +385,9 @@ public class UserEventManager {
 				System.out.println(event.getInfo());
 				System.out.print("ID: ");
 				System.out.println(event.getId());
+				System.out.print("\n");
 			}
+			System.out.print("Type the ID of the event you want: ");
 		}
 	}
 	
