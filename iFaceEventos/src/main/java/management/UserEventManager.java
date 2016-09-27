@@ -391,7 +391,7 @@ public class UserEventManager {
 		}
 	}
 	
-	public void addEvents (User user, int uId, int eId) throws Exception {		
+	public void addEvents (User user, int eId) throws Exception {		
 		for (int i = 0; i < user.associatedEvents.size(); i++) {
 			if (eId == user.associatedEvents.get(i).getId()) {
 				throw new AlreadyInvitedException("This user was already invited!\n");

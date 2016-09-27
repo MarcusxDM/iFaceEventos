@@ -158,7 +158,7 @@ public class App {
 											input.nextLine();
 
 											if (accept == 1) {
-												uEManager.addEvents(newGuest, uId, id);
+												uEManager.addEvents(newGuest, id);
 
 												event.addGuests(newGuest);
 												newGuest.addAssociatedEvents(event);
