@@ -163,6 +163,8 @@ public class App {
 												event.addGuests(newGuest);
 												newGuest.addAssociatedEvents(event);
 												
+												uEManager.updateEvent(event);
+												
 											} else if (accept == 2) {
 												break;
 											}
