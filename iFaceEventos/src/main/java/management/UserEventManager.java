@@ -1,8 +1,8 @@
 package management;
 
-import models.Event;
-import models.User;
 import exceptionsFile.*;
+import model.Event;
+import model.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -74,7 +74,7 @@ public class UserEventManager {
 		}
 	}
 
-	public User getUserById(int id) throws Exception {
+	public User getUserById(int id) {
 		session = sessionFactory.openSession();
 
 		Query query = session.createQuery("from User where id = :id");
@@ -84,9 +84,9 @@ public class UserEventManager {
 
 		session.close();
 
-		if (u == null) {
-			throw new UserNotFoundException("This user was not found.\n");
-		}
+//		if (u == null) {
+//			throw new UserNotFoundException("This user was not found.\n");
+//		}
 		return u;
 	}
 
