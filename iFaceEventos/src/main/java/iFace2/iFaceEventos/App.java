@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import management.UserEventManager;
-import models.Event;
-import models.User;
+import model.Event;
+import model.User;
 import exceptionsFile.*;
 
 public class App {
