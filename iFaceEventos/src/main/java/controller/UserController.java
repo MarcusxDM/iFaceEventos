@@ -1,4 +1,4 @@
-package events.controller;
+package controller;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import events.dao.UserDAO;
-import events.model.User;
+import dao.UserDAO;
+import model.User;
 
 @Controller
 @RequestMapping("/user")

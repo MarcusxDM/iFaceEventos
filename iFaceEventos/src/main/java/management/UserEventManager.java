@@ -1,4 +1,8 @@
-package events.management;
+package management;
+
+import exceptionsFile.*;
+import model.Event;
+import model.User;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,10 +19,6 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import events.exceptionsFile.*;
-import events.model.Event;
-import events.model.User;
 
 public class UserEventManager {
 	private static Scanner intReader = new Scanner(System.in);

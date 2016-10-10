@@ -1,4 +1,5 @@
-package events.dao;
+package dao;
+
 
 import java.util.List;
 
@@ -8,12 +9,16 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import events.model.User;
+import model.User;
 
 @Repository
 @Transactional
 public class UserDAO {
 
+	/*
+	 * An EntityManager will be automatically injected from entityManagerFactory
+	 * setup on DatabaseConfig class.
+	 */
 	@PersistenceContext
 	private EntityManager entityManager;
 
@@ -43,10 +48,10 @@ public class UserDAO {
 	public User getByUsername(String username) {
 		return entityManager.find(User.class, username);
 	}
-
+	
 	public User login(String username, String password) {
-		return (User) entityManager.createQuery("from User where username = :username and password = :password")
-				.setParameter("username", username).setParameter("password", password).getSingleResult();
+		return (User) entityManager.createQuery("from User where username = :username and password = :password").setParameter("username", username).setParameter("password", password)
+				.getSingleResult();
 	}
 
 	public void update(User user) {
@@ -55,3 +60,4 @@ public class UserDAO {
 	}
 
 }
+

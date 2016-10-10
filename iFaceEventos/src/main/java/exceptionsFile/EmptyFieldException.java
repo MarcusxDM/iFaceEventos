@@ -1,5 +1,5 @@
 
-package events.exceptionsFile;
+package exceptionsFile;
 
 public class EmptyFieldException extends Exception {
 	public EmptyFieldException() {

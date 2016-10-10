@@ -1,4 +1,4 @@
-package events.exceptionsFile;
+package exceptionsFile;
 
 public class EventNotFoundException extends Exception {
 	public EventNotFoundException() {

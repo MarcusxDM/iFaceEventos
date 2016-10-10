@@ -1,4 +1,4 @@
-package events.exceptionsFile;
+package exceptionsFile;
 
 public class UsernameAlreadyExistsException extends Exception {
 	public UsernameAlreadyExistsException() {

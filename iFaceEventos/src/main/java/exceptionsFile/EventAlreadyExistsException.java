@@ -1,4 +1,4 @@
-package events.exceptionsFile;
+package exceptionsFile;
 
 public class EventAlreadyExistsException extends Exception {
 	public EventAlreadyExistsException() {
