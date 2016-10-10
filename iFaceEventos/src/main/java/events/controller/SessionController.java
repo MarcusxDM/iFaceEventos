@@ -1,4 +1,4 @@
-package controller;
+package events.controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import dao.UserDAO;
-import model.User;
+import events.dao.UserDAO;
+import events.model.User;
 
 @Controller
 public class SessionController {
@@ -17,10 +17,10 @@ public class SessionController {
 	private UserDAO userDAO;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	String login(HttpSession session, String login, String password) {
+	String login(HttpSession session, String username, String password) {
 		
 		try {
-			User user = userDAO.login(login, password);
+			User user = userDAO.login(username, password);
 
 			if (user == null) {
 				return "redirect:/";

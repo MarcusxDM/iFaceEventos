@@ -1,4 +1,4 @@
-package iFace2.iFaceEventos;
+package events.iFace2.iFaceEventos;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -7,10 +7,10 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import management.UserEventManager;
-import model.Event;
-import model.User;
-import exceptionsFile.*;
+import events.exceptionsFile.*;
+import events.management.UserEventManager;
+import events.model.Event;
+import events.model.User;
 
 public class App {
 	public static Date now;

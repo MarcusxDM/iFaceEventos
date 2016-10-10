@@ -1,4 +1,4 @@
-package config;
+package events.config;
 
 import java.util.Properties;
 

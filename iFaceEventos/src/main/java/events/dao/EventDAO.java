@@ -1,4 +1,4 @@
-package dao;
+package events.dao;
 
 public class EventDAO {
 

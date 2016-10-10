@@ -1,4 +1,4 @@
-package exceptionsFile;
+package events.exceptionsFile;
 
 public class UserNotFoundException extends Exception {
 	public UserNotFoundException() {

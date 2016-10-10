@@ -1,5 +1,5 @@
 
-package exceptionsFile;
+package events.exceptionsFile;
 
 public class InvalidDataException extends Exception {
 	public InvalidDataException() {
