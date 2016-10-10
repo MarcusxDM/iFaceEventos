@@ -1,0 +1,37 @@
+<div>
+    <h2>Sign Up</h2>
+
+    <form action="/user/create" method="post" ng-controller="validateCtrl" name="createForm" novalidate>
+    <div>
+        <label>Username:</label>
+        <input type="text" name="username" ng-model="username" required>
+        <span style="color:red" ng-show="createForm.username.$dirty && createForm.username.$invalid">
+            <span ng-show="createForm.username.$error.required">An username is required.</span>
+        </span>
+    </div>
+    <div>
+        <label>Email:</label>
+        <input type="email" name="email" ng-model="email" required>
+        <span style="color:red" ng-show="createForm.email.$dirty && createForm.email.$invalid">
+            <span ng-show="createForm.email.$error.required">An email is required.</span>
+            <span ng-show="createForm.email.$error.email">Email invalid.</span>
+        </span>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password" ng-model="password" ng-minlength="8" required>
+        <span style="color:red" ng-show="createForm.password.$dirty && createForm.password.$invalid">
+            <span ng-show="createForm.password.$error.required">A password is required.</span>
+            <span ng-show="createForm.password.$error.minlength">Password is too small.</span>
+        </span>
+    </div>
+
+    <input type="submit" value="Submit"
+    ng-disabled="createForm.username.$pristine ||
+    createForm.email.$pristine ||
+    createForm.password.$pristine ||
+    createForm.username.$dirty && createForm.username.$invalid ||
+    createForm.email.$dirty && createForm.email.$invalid ||
+    createForm.password.$dirty && createForm.password.$invalid || createForm.password.minlenght">
+    </form>
+</div>
