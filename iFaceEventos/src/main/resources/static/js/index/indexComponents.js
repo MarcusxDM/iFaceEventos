@@ -7,7 +7,7 @@ angular.module('indexComponents', [])
       scope: {},
       controller: function($scope, $element) {
           $scope.showUserCreation = false;
-          $scope.showLogin = false;
+          $scope.showLogin = true;
 
           $scope.showUserCreationForms = function(){
               if($scope.showUserCreation == false){
@@ -29,17 +29,7 @@ angular.module('indexComponents', [])
               }
           };
       },
-      template:
-        '<div>' +
-            '<p><a href="" ng-click="showUserCreationForms()">User creation</a><p>' +
-            '<div class="check-element animate-show" ng-show="showUserCreation">' +
-                '<create></create>' +
-            '</div>' +
-            '<p><a href="" ng-click="showLoginForms()">Login</a><p>' +
-            '<div class="check-element animate-show" ng-show="showLogin">' +
-                '<login></login>' +
-            '</div>' +
-        '</div>',
+      templateUrl: 'js/index/opc.html',
       replace: true
     };
   });

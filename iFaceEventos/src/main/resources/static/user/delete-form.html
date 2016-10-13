@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <title>Delete account</title>
 </head>
-<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>  
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <body>
 
 <h2>Delete account</h2>
 
-<form action="/user/delete" method="post" ng-app="myApp" ng-controller="validateCtrl" 
+<form action="/user/delete" method="post" ng-app="myApp" ng-controller="validateCtrl"
 name="myForm" novalidate>
 
 <p>Username:<br>
@@ -23,14 +23,13 @@ name="myForm" novalidate>
 <input type="password" name="password" ng-model="password" ng-minlength="8" required>
 <span style="color:red" ng-show="myForm.password.$dirty && myForm.password.$invalid">
 <span ng-show="myForm.password.$error.required">A password is required.</span>
-<span ng-show="myForm.password.$error.minlength">Password too small.</span>
 <p>
 
 <input type="submit" value="Delete account"
 ng-disabled="myForm.username.$pristine ||
 myForm.password.$pristine ||
 myForm.username.$dirty && myForm.username.$invalid ||
-myForm.password.$dirty && myForm.password.$invalid || myForm.password.minlenght">
+myForm.password.$dirty && myForm.password.$invalid">
 </p>
 
 </form>

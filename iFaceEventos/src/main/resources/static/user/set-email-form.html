@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Update email</title>
+</head>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<body>
+
+<h2>Insert your info:</h2>
+
+<form action="/user/set-email" method="post" ng-app="myApp" ng-controller="validateCtrl"
+name="myForm" novalidate>
+
+<p>Username:<br>
+<input type="text" name="username" ng-model="username" required>
+<span style="color:red" ng-show="myForm.username.$dirty && myForm.username.$invalid">
+<span ng-show="myForm.username.$error.required">An username is required.</span>
+</span>
+</p>
+
+<p>Password:<br>
+<input type="password" name="password" ng-model="password" ng-minlength="8" required>
+<span style="color:red" ng-show="myForm.password.$dirty && myForm.password.$invalid">
+<span ng-show="myForm.password.$error.required">A password is required.</span>
+
+<h2>Insert your new email: </h2>
+<p>Email:<br>
+<input type="email" name="email" ng-model="email" required>
+<span style="color:red" ng-show="myForm.email.$dirty && myForm.email.$invalid">
+<span ng-show="myForm.email.$error.required">An email is required.</span>
+<span ng-show="myForm.email.$error.email">Invalid email.</span>
+</span>
+</p>
+
+<input type="submit" value="Submit"
+ng-disabled="myForm.username.$pristine ||
+myForm.email.$pristine ||
+myForm.password.$pristine ||
+myForm.username.$dirty && myForm.username.$invalid ||
+myForm.email.$dirty && myForm.email.$invalid ||
+myForm.password.$dirty && myForm.password.$invalid">
+</p>
+
+</form>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('validateCtrl', function($scope) {
+    $scope.username = '';
+    $scope.email = '';
+    $scope.password = '';
+});
+</script>
+
+</body>
+</html>

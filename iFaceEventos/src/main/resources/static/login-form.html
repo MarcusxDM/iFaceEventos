@@ -1,27 +1,27 @@
 <div>
-    <h2>Login</h2>
-
     <form action="/login" method="post" ng-controller="validateCtrl" name="loginForm" novalidate>
-        <div class="mdl-textfield mdl-js-textfield">
+        <div class="input-field">
             <label for="lUsername" class="mdl-textfield__label">Username:</label>
-            <input id="lUsername" type="text" name="username" ng-model="username" required>
+            <input id="lUsername" type="text" name="username" ng-model="username" class="validate" required>
             <span style="color:red" ng-show="loginForm.username.$dirty && loginForm.username.$invalid">
                 <span class="mdl-textfield__error" ng-show="loginForm.username.$error.required">An username is required.</span>
             </span>
         </div>
-        <div class="mdl-textfield mdl-js-textfield">
+        <div class="input-field">
             <label for="lPassword" class="mdl-textfield__label">Password:</label>
-            <input id="lPassword" class="mdl-textfield__input" type="password" name="password" ng-model="password" ng-minlength="8" required>
+            <input id="lPassword" class="validate" type="password" name="password" ng-model="password" ng-minlength="8" required>
             <span style="color:red" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
                 <span class="mdl-textfield__error" ng-show="loginForm.password.$error.required">A password is required.</span>
                 <span class="mdl-textfield__error" ng-show="loginForm.password.$error.minlength">Password too small.</span>
             </span>
         </div>
 
-        <input type="submit" value="Submit" ng-disabled="loginForm.username.$pristine ||
+        <button type="submit" ng-disabled="loginForm.username.$pristine ||
         loginForm.email.$pristine ||
         loginForm.password.$pristine || loginForm.username.$dirty && loginForm.username.$invalid ||
         loginForm.password.$dirty && loginForm.password.$invalid || loginForm.password.minlenght"
-        class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+        class="waves-effect waves-light btn-floating btn-large teal darken-1">
+            <i class="material-icons right">send</i>
+        </button>
     </form>
 </div>
