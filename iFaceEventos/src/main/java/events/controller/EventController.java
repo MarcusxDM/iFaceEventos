@@ -29,8 +29,13 @@ public class EventController {
 		return "redirect:/event/menu-event.html";
 	}
 	
+	@RequestMapping(value="/create2", method = RequestMethod.GET)
+	public String createEvent() {
+		return "redirect:/event/create-event.html";
+	}
+	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(String name, String description, String hostUsername, Date date) {
+	public String create(String name, String description, String hostUsername, String location, Date date) {
 
 		Event event = null;
 		User host = null;
@@ -39,7 +44,7 @@ public class EventController {
 		if (name == null || name.isEmpty())
 			return "redirect:/error/set-error?error=Empty name!";
 
-		event = new Event(name, description, host , date);
+		event = new Event(name, description, location, host , date);
 
 		try {
 			eventDAO.save(event, host);

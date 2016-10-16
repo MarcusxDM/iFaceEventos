@@ -26,6 +26,9 @@ public class Event {
 	public String description;
 	
 	@NotNull
+	public String location;
+	
+	@NotNull
 	public Date date;
 
 	@ManyToMany
@@ -39,11 +42,21 @@ public class Event {
 
 	}
 
-	public Event(String name, String description, User host, Date date) {
+	public Event(String name, String description, String location, User host, Date date) {
 		this.name = name;
 		this.description = description;
 		this.host = host;
 		this.date = date;
+		this.location = location;
+		
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public int getId() {

@@ -1,14 +1,98 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="UTF-8">
-	<title>Event</title>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/material.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/create-event.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+<meta charset="UTF-8">
+<title>Event</title>
 </head>
-		<body>
-			<center><h1>IFACE</h1></center>
-			<center><h4>Create Menu</h4></center>
-			<center>All those fucking nome and descrição sheets nigga to create and save</center>
-			<center><a href=/user/home> Home </a>
-			</center>
-		</body>
+ 
+<body>
+    <div class="containerNProfile">
+ 
+        <div class="signup-screen">
+            <div class="space-bot text-center">
+                <img src="https://pbs.twimg.com/media/Cu3YQX3WgAAzNXm.jpg:large"
+                    alt="Logo" style="width: 128px; height: 128px;">
+                <h1 class="nprofileTitle">Create Event</h1>
+                <div class="divider"></div>
+            </div>
+ 
+            <form name="createEvent">
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">label</i> <input
+                                    name="Eventname" id="name" type="text" ng-model="Event.name"
+                                    ng-required="true" ng-minlength='2' class="validate" required><label
+                                    for="name">Name</label>
+                                <div ng-messages="createEvent.name.$error"
+                                    class="alert alert-danger"
+                                    ng-show="createEvent.name.$invalid && createEvent.name.$dirty">
+                                    <div ng-message="required">Please, fill this space.</div>
+                                    <div ng-message="minlength">It needs to have at least 2
+                                        caracteres.</div>
+                                </div>
+                            </div>
+
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">subject</i> 
+                                <input 
+                                    name="Eventdesciption" id="description" type="text"
+                                    class="validate" ng-model="Event.description"
+                                    ng-required="true" ng-minlength="2"> 
+                                    <label for="description">Description</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">date_range</i> <input
+                                    name="Eventdate" type="text" id="datepicker" class="validate"
+                                    ng-model="Event.datepicker" ng-required="true" ui-date><label for="date">Date</label>
+                            </div>
+                        
+                        <div class="input-field col s6">
+                            <i class="material-icons prefix">location_on</i> <input
+                                name="Eventplace" type="text" id="place" class="validate"
+                                ng-model="Event.place.name" ng-required="true">
+                            <label for="place">Place</label>
+                        </div>
+                        
+                        </div>
+ 
+                    </div>
+                </div>
+ 
+                <button
+                    ng-disabled="createEvent.name.$pristine ||
+                                createEvent.description.$pristine ||
+                                createEvent.date.$pristine"
+                    class="waves-effect waves-light btn done"
+                    ng-click="newEvent(Event)">
+                    <i class="material-icons left">done</i>Done
+                </button>
+                <button type="button" class="waves-effect waves-light btn clear">
+                    <i class="material-icons left">clear</i>Clear
+                </button>
+                <button type="button" class="waves-effect waves-light btn" ng-click=href="menu-event.html">
+                    <i class="material-icons right"></i>Back
+                </button>
+ 
+ 
+            </form>
+        </div>
+    </div>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">        
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+ 
+</body>
 </html>

@@ -1,0 +1,129 @@
+body {
+	background-color: #e0e0e0; /* e0e0e0 */
+
+}
+
+.text-center {
+	text-align: center;
+    color: white;
+}
+
+.space-bot {
+	margin-bottom: 35px;
+}
+
+.space-top {
+	margin-top: 35px;
+}
+
+label {
+    color: white;
+}
+
+/* Title */
+.nprofileTitle {
+	color: white;
+	text-transform: uppercase;
+	font-weight: 900;
+	font-size: 25px;
+	text-align: center;
+}
+
+/* Sign Up */
+.containerNProfile {
+	max-width: 800px;
+	max-height: 100px;
+	margin-top: 10px;
+	margin: 0 auto;
+    color: white;
+}
+
+.alert-danger {
+	text-align: center;
+}
+
+.signup-screen {
+	padding: 20px;
+	padding-bottom: 40px;
+	border-radius: 5px;
+	background-color: #20b2aa; /*20b2aa*/
+	box-shadow: 0 1px 6px rgba(0, 0, 0, .3);
+	color: white;
+}
+
+.btn {
+	border-radius: 2px;
+}
+
+.back {
+	background-color: #df405a;
+}
+
+.cancel {
+	background-color: #df405a;
+}
+
+.done {
+	background-color: #5CAB7D;
+}
+
+.done:hover {
+	background-color: #4682b4;
+}
+
+.done:focus {
+	background-color: #6dc793;
+}
+
+.cancel:hover {
+	background-color: #f0435f;
+}
+
+.cancel:focus {
+	background-color: #f0435f;
+}
+
+.input-group {
+	width: 100%;
+    color: white;
+}
+
+.input-group .ng-invalid {
+	border: 2px solid #4682b4;
+	border-radius: 3px;
+}
+
+.h1 {
+    color: white;
+    font-family:sans-serif;
+}
+
+/* Error Box */
+.alert {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 2px;
+	border-color: #e85a71; /*borda do alerta #4682b4*/
+	background-color: #e85a71; /*dentro do alerta*/
+	color: white;
+}
+
+.help-block {
+	font-size: 12px;
+	color: white
+}
+
+.img-thumbnail {
+	width: 200px; 
+	height: 200px;
+	background-image: none;
+}
+
+label {
+	color: white !important;
+}
+
+input {
+	border-bottom: 1px solid white !important;
+}
