@@ -2,6 +2,7 @@ package events.controller;
 
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,12 @@ public class EventController {
 	private EventDAO eventDAO;
 	
 	private UserDAO userDAO;
-
+	
+	@RequestMapping(value="/menu", method = RequestMethod.GET)
+	public String menu() {
+		return "redirect:/event/menu-event.html";
+	}
+	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String create(String name, String description, String hostUsername, Date date) {
 
@@ -87,7 +93,6 @@ public class EventController {
 
 		if (event == null)
 			return "redirect:/error/set-error?error=Event not found!";
-
 
 		event.setName(name);
 

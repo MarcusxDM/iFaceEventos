@@ -187,7 +187,7 @@ public class UserController {
 		// Else the object exists (User is logged in)
 		} else {
 			return "<center><h1>IFACE</h1></center>" + "<center><h4>You are logged</h4><center>" + "<center> Username: " + user.getUsername() + " -- Email: " + user.getEmail() + "</center>" + "<center><a href=/logout> Logout </a> <a href=delete-form.html> Delete account </a>"
-					+ "<a href=set-email-form.html> Update email </a> <a href=set-password-form.html> Update password </a></center>";
+					+ "<a href=set-email-form.html> Update email </a> <a href=set-password-form.html> Update password </a> <a href=http://localhost:8080/event/menu.html> Events </a></center>";
 		}
 
 	}

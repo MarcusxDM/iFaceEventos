@@ -15,7 +15,7 @@
 
 	<packaging>war</packaging>
 	<build>
-		<finalName>infra</finalName>
+		<finalName>events</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>

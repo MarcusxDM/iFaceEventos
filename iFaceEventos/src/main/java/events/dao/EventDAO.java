@@ -6,8 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
+import events.exceptionsFile.EventNotFoundException;
 import events.model.User;
 import events.model.Event;
 
@@ -72,4 +74,16 @@ public class EventDAO {
 	public Event getEventById(int id) {
 		return entityManager.find(Event.class, id);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Event> getEventByName(String name) throws Exception {
+		List<Event> query;
+		query = entityManager.createQuery("from Event where name LIKE %name%").setParameter("name", name).getResultList();
+		
+		if ( query == null) {
+			throw new EventNotFoundException("This event was not found.\n");
+		}
+		return query;
+	}
+	
 }
