@@ -122,8 +122,18 @@ label {
 
 label {
 	color: white !important;
+	font-size: 25px;
 }
 
 input {
 	border-bottom: 1px solid white !important;
+}
+
+a.name {
+	font-size: 100px;
+	color: white;
+}
+
+.create-event-but {
+	width: 100px !important;
 }

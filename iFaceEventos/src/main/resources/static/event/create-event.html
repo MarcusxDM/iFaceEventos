@@ -32,9 +32,11 @@
                                 <div ng-messages="createEvent.name.$error"
                                     class="alert alert-danger"
                                     ng-show="createEvent.name.$invalid && createEvent.name.$dirty">
-                                    <div ng-message="required">Please, fill this space.</div>
+                                    <div ng-message="required">Please, fill this space.
+                                    </div>
                                     <div ng-message="minlength">It needs to have at least 2
-                                        caracteres.</div>
+                                        caracteres.
+                                    </div>
                                 </div>
                             </div>
 
@@ -79,9 +81,9 @@
                 <button type="button" class="waves-effect waves-light btn clear">
                     <i class="material-icons left">clear</i>Clear
                 </button>
-                <button type="button" class="waves-effect waves-light btn" ng-click=href="menu-event.html">
+                <a class="waves-effect waves-light btn" href="menu-event.html">
                     <i class="material-icons right"></i>Back
-                </button>
+                </a>
  
  
             </form>

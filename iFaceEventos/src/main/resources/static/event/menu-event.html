@@ -1,15 +1,62 @@
 <!DOCTYPE html>
 <html>
-	<head>
-	<meta charset="UTF-8">
-	<title>Event</title>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/material.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/menu-event.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+<meta charset="UTF-8">
+<title>Event</title>
 </head>
-		<body>
-			<center><h1>IFACE</h1></center>
-			<center><h4>Events Menu</h4></center>
-			<center> User's events List: "Event Example" <a href=/event/get?eventid=0> "Manage Button" </a></center>
-			<center><a href=/user/home> Home </a> <a href=/event/search-event.html> (não vai ser uma nova pagina) Search Event </a></center>
-			<center> Search Event results:</a></center>
-			<center><a href=/event/create-event.html> Create Event</a> </center>
-		</body>
+ 
+<body>
+    <div class="containerNProfile">
+ 
+        <div class="signup-screen">
+            <div class="space-bot text-center">
+                <img src="https://pbs.twimg.com/media/Cu3YQX3WgAAzNXm.jpg:large"
+                    alt="Logo" style="width: 128px; height: 128px;">
+                <h1 class="nprofileTitle">Event Menu</h1>
+                <div class="divider"></div>
+            </div>
+ 
+                <div class="row">
+                    <div class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                            	<a name="Eventname" id="name" type="text" ng-model="Event.name"><label for="name">List of events I participate:
+                            	</label></a>                              									
+                            </div>
+                        </div>
+
+
+                        
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">search</i> 
+                                <input placeholder="Event's name"
+                                    name="Eventsearch" id="search" type="text"
+                                    class="validate" ng-model="Event.search"
+                                    ng-required="true" ng-minlength="2"> 
+                                    <label for="search"></label>
+                            </div>
+                        
+                    </div>
+                </div>
+ 				
+ 				<a class="waves-effect waves-light btn" href="http://localhost:8080/user/home">
+                    <i class="material-icons right"></i>Back
+                </a>
+
+                <a  style="left: 580px" id="create-event-but" class="btn-floating btn-large waves-effect waves-light green" href="create-event.html"><i class="material-icons">add</i></a>             
+ 
+        </div>
+    </div>
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">        
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+ 
+</body>
 </html>
