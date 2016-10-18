@@ -35,10 +35,10 @@ public class User {
 	@NotNull
 	public String email;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "guests")
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "guests")
 	public List<Event> associatedEvents = new ArrayList<Event>();
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "host")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "host")
 	public List<Event> managedEvents = new ArrayList<Event>();
 
 	public User() {

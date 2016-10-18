@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/material.min.css" />
     <link rel="stylesheet" type="text/css" href="css/create-event.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/materialize.clockpicker.css" />
 <meta charset="UTF-8">
@@ -21,13 +21,13 @@
                 <div class="divider"></div>
             </div>
  
-            <form ng-submit="formSubmit()" name="createEvent" novalidate>
+            <form action="/event/create" method="post" name="createEvent" novalidate>
                 <div class="row">
                     <div class="col s12">
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">label</i>
-                                <input name="eventName" id="eventName" type="text" ng-model="event.name" ng-required="true" ng-minlength='2' class="validate">
+                                <input name="name" id="eventName" type="text" ng-model="name" ng-required="true" ng-minlength='2' class="validate">
                                 <label for="eventName">Name</label>
                                 <div class="alert alert-danger" ng-if="createEvent.eventName.$invalid && createEvent.eventName.$dirty">
                                     <div ng-if="createEvent.eventName.$error.required">Please, fill this space. </div>
@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">subject</i> 
-                                <input name="eventDescription" id="eventDescription" type="text" class="validate" ng-model="event.description" ng-minlength='2' ng-required="true" ng-minlength="2">
+                                <input name="description" id="eventDescription" type="text" class="validate" ng-model="description" ng-minlength='2' ng-required="true">
                                 <label for="eventDescription">Description</label>
                                 <div class="alert alert-danger" ng-if="createEvent.eventDescription.$invalid && createEvent.eventDescription.$dirty">
                                     <div ng-if="createEvent.eventDescription.$error.required">Please, fill this space. </div>
@@ -50,7 +50,7 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">date_range</i>
-                                <input name="eventDate" type="text" id="eventDate" placeholder="Date" class="datepicker validate" ng-model="event.date" ng-required="true">
+                                <input name="date" type="text" id="eventDate" placeholder="Date" class="datepicker validate" ng-model="event.date" ng-required="true">
                                 <!--<label for="eventDate">Date</label>-->
                                 <div class="alert alert-danger" ng-if="createEvent.eventDate.$invalid && createEvent.eventDate.$dirty">
                                     <div ng-if="createEvent.eventDate.$error.required">Please, fill this space. </div>
@@ -58,7 +58,7 @@
                             </div>
                             <div class="input-field col s6">
                                 <!--<label for="eventTime">Time</label>-->
-                                <input id="eventTime" name="eventTime" placeholder="Time" class="timepicker" type="text" ng-model="event.time" ng-required="true">
+                                <input id="time" name="time" placeholder="Time" class="timepicker" type="text" ng-model="event.time" ng-required="true">
                                 <div class="alert alert-danger" ng-if="createEvent.eventTime.$invalid && createEvent.eventTime.$dirty">
                                     <div ng-if="createEvent.eventTime.$error.required">Please, fill this space. </div>
                                 </div>
@@ -67,7 +67,7 @@
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">location_on</i>
-                            <input name="eventPlace" type="text" id="eventPlace" class="validate" ng-model="event.place" ng-required="true" ng-minlength='2'>
+                            <input name="location" type="text" id="eventPlace" class="validate" ng-model="place" ng-required="true" ng-minlength='2'>
                             <label for="eventPlace">Place</label>
                             <div class="alert alert-danger" ng-if="createEvent.eventPlace.$invalid && createEvent.eventPlace.$dirty">
                                 <div ng-if="createEvent.eventPlace.$error.required">Please, fill this space.</div>
@@ -98,10 +98,10 @@
             </form>
         </div>
     </div>
-   
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <script src="../js/angular.min.js"></script>
+    <script src="../js/materialize.min.js"></script>
     <script src="../js/materialize.clockpicker.js"></script>
     <script src="../js/event/event-app.js"></script>
  

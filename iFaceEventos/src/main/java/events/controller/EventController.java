@@ -1,5 +1,6 @@
 package events.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -25,20 +26,30 @@ public class EventController {
 	private EventDAO eventDAO;
 	
 	private UserDAO userDAO;
-	
+
 	@RequestMapping(value="/menu", method = RequestMethod.GET)
 	public String menu() {
 		return "redirect:/event/menu-event.html";
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(HttpSession session, String name, String description, String location, Date date) {
+	public String create(HttpSession session, String name, String description, String location, String date, String time) {
 		
 		User host = (User) session.getAttribute("user");
+		if (host == null){
+			return "redirect:/index.html";
+		}
+		Date formatedDate = null;
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		String dateString = date + ' ' + time;
+		try {
+			formatedDate = dt.parse(dateString);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		Event event = null;
 
-		event = new Event(name, description, location, host , date);
-
+		event = new Event(name, description, location, host , formatedDate);
 		try {
 			eventDAO.save(event, host);
 		} catch (Exception ex) {
@@ -50,7 +61,7 @@ public class EventController {
 	}
 	
 	@RequestMapping("/profile-host")
-	public String profileHost(HttpSession session, int eventId) {
+	public String profileHost(HttpSession session, @RequestParam(value = "eventId")int eventId) {
 		
 		User host = (User) session.getAttribute("user");
 		Event event = eventDAO.getEventById(eventId);
@@ -59,7 +70,7 @@ public class EventController {
 	}
 	
 	@RequestMapping("/profile-guest")
-	public String profileEvent(HttpSession session, int eventId) {
+	public String profileEvent(HttpSession session, @RequestParam(value = "eventId")int eventId) {
 		
 		User host = (User) session.getAttribute("user");
 		Event event = eventDAO.getEventById(eventId);

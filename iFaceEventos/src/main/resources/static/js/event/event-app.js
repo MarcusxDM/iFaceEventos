@@ -2,16 +2,19 @@ var myapp = angular.module('event', []);
 
 myapp.controller('createEventController', ['$scope', '$log', 'eventService', function ($scope, $log, eventService) {
     $scope.event = {};
+    $scope.name='';
+    $scope.description = '';
+    $scope.date = '';
+    $scope.location = '';
     $scope.formSubmit = function () {
         if(! $scope.createEvent.$valid) {
-            $scope.createEvent.eventName.$setDirty();
+            $scope.createEvent.name.$setDirty();
             $scope.createEvent.eventDescription.$setDirty();
             $scope.createEvent.eventDate.$setDirty();
             $scope.createEvent.eventTime.$setDirty();
             $scope.createEvent.eventPlace.$setDirty();
         } else {
-            $log.log('teste');
-            eventService.createEvent($scope.event);
+            $scope.date = $scope.event.date;
         }
     };
 
