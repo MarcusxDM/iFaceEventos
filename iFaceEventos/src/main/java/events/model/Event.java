@@ -14,6 +14,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "event")
 public class Event {
@@ -30,7 +32,8 @@ public class Event {
 	
 	@NotNull
 	public Date date;
-
+	
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "user_event", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_username"))
 	public List<User> guests = new ArrayList<User>();
@@ -98,11 +101,12 @@ public class Event {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
 
 	public List<User> getGuests() {
 		return guests;
 	}
-
+	
 	public void setGuests(List<User> guests) {
 		this.guests = guests;
 	}

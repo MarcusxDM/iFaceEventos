@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "user")
 public class User {
@@ -26,6 +28,7 @@ public class User {
 	@GeneratedValue
 	protected int id;
 	
+	@JsonIgnore
 	@NotNull
 	public String password;
 	
@@ -34,10 +37,12 @@ public class User {
 	
 	@NotNull
 	public String email;
-
+	
+	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "guests")
 	public List<Event> associatedEvents = new ArrayList<Event>();
 
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "host")
 	public List<Event> managedEvents = new ArrayList<Event>();
 
