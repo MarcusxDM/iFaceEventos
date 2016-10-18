@@ -67,8 +67,6 @@ public class EventDAO {
 
 		event.addGuests(guest);
 		guest.addAssociatedEvents(event);
-		
-		entityManager.merge(event);
 	}
 
 	public Event getEventById(int id) {

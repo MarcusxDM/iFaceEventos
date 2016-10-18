@@ -15,6 +15,8 @@ import events.model.User;
 import events.dao.EventDAO;
 import events.model.Event;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/event")
 public class EventController {
@@ -29,20 +31,11 @@ public class EventController {
 		return "redirect:/event/menu-event.html";
 	}
 	
-	@RequestMapping(value="/create2", method = RequestMethod.GET)
-	public String createEvent() {
-		return "redirect:/event/create-event.html";
-	}
-	
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String create(String name, String description, String hostUsername, String location, Date date) {
-
-		Event event = null;
-		User host = null;
-		host = userDAO.getByUsername(hostUsername);
+	public String create(HttpSession session, String name, String description, String location, Date date) {
 		
-		if (name == null || name.isEmpty())
-			return "redirect:/error/set-error?error=Empty name!";
+		User host = (User) session.getAttribute("user");
+		Event event = null;
 
 		event = new Event(name, description, location, host , date);
 
@@ -52,12 +45,66 @@ public class EventController {
 			return "redirect:/error/set-error?error=Error creating the Event: " + ex.toString();
 		}
 
-		return "redirect:/index.html";
+		return "redirect:/event/menu-event.html";
 
+	}
+	
+	@RequestMapping("/profile-host")
+	public String profileHost(HttpSession session, int eventId) {
+		
+		User host = (User) session.getAttribute("user");
+		Event event = eventDAO.getEventById(eventId);
+		
+		return "redirect:/event/profile-event-host.html";
+	}
+	
+	@RequestMapping("/profile-guest")
+	public String profileEvent(HttpSession session, int eventId) {
+		
+		User host = (User) session.getAttribute("user");
+		Event event = eventDAO.getEventById(eventId);
+		
+		return "redirect:/event/profile-event.html";
+	}
+	
+	@RequestMapping("/edit")
+	public String edit(HttpSession session, String guestUsername, int eventId, String name, String description, String location, Date date) {
+		
+		User host = (User) session.getAttribute("user");
+		Event event = eventDAO.getEventById(eventId);
+		User newGuest = null;
+		
+		if (host == null)
+			return "redirect:/error/set-error?error=You are not logged in!";
+		if (event == null)
+			return "redirect:/error/set-error?error=Event not found!";
+		
+		if (guestUsername != null)
+			newGuest = userDAO.getByUsername(guestUsername);
+			eventDAO.addGuest(event, newGuest);
+		
+		// Any blank form won't get edited (Previous event's information will be intact)
+		if (name != null)
+			event.setName(name);
+		if (guestUsername != null)
+			event.setName(name);
+		if (description != null)
+			event.setDescription(description);
+		if (location != null)
+			event.setLocation(location);
+		if (date != null)
+			event.setDate(date);
+		
+		try {
+			eventDAO.update(event);
+		} catch (Exception ex) {
+			return "redirect:/error/set-error?error=Error updating Event: " + ex.toString();
+		}
+		return "redirect:/event/menu-event.html";
 	}
 
 	@RequestMapping("/delete")
-	public String delete(int eventId) {
+	public String delete(HttpSession session, int eventId) {
 
 		Event event = eventDAO.getEventById(eventId);
 		
@@ -70,43 +117,17 @@ public class EventController {
 			return "redirect:/error/set-error?error=Error deleting user: " + ex.toString();
 		}
 
-		return "redirect:/user/home.html";
+		return "redirect:/event/menu-event.html";
 	}
-
-	@RequestMapping("/set-description")
-	public String updateEventDescription(int eventId, String description) {
-
-		Event event = eventDAO.getEventById(eventId);
-
-		if (event == null)
-			return "redirect:/error/set-error?error=Event not found!";
-
-
-		event.setDescription(description);
-
-		try {
-			eventDAO.update(event);
-		} catch (Exception ex) {
-			return "redirect:/error/set-error?error=Error updating Description: " + ex.toString();
-		}
-		return "redirect:/user/home";
-	}
-
-	@RequestMapping("/set-name")
-	public String updateEventName(int eventId, String name) {
-		Event event = eventDAO.getEventById(eventId);
-
-		if (event == null)
-			return "redirect:/error/set-error?error=Event not found!";
-
-		event.setName(name);
-
-		try {
-			eventDAO.update(event);
-		} catch (Exception ex) {
-			return "redirect:/error/set-error?error=Error updating Description: " + ex.toString();
-		}
-		return "redirect:/user/home";
+	
+	/*
+	 * returns a JSON containing the event attributes
+	 * http://localhost:8080/event/getEventLikeName?eventName=eventName
+	 */
+	@RequestMapping("/getEventLikeName")
+	@ResponseBody
+	public List<Event> getEventLikeName(@RequestParam(value = "eventName", defaultValue = "")String eventName) throws Exception{
+		return eventDAO.getEventByName(eventName);
 	}
 
 	/*
