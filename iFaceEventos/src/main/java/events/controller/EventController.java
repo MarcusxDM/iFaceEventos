@@ -153,11 +153,28 @@ public class EventController {
 
 	/*
 	 * returns a JSON containing the user managed events list
-	 * http://localhost:8080/event/get-by-hostusername?hostusername=marcusxdm
+	 * http://localhost:8080/event/get-managed?session=session
 	 */
-	@RequestMapping(value = "/get-by-hostusername")
+	@RequestMapping(value = "/get-managed")
 	@ResponseBody
-	public List<Event> getByHost(@RequestParam(value = "hostusername", defaultValue = "")String hostUsername) {
-		return userDAO.getByUsername(hostUsername).getManagedEvents();
+	public List<Event> getManaged(@RequestParam(value = "session", defaultValue = "")HttpSession session) {
+		User host = (User) session.getAttribute("user");
+		if (host == null)
+			return null;
+		return host.getManagedEvents();
+	}
+	
+	
+	/*
+	 * returns a JSON containing the user managed events list
+	 * http://localhost:8080/event/get-associated?session=session
+	 */
+	@RequestMapping(value = "/get-associated")
+	@ResponseBody
+	public List<Event> getAssociated(@RequestParam(value = "session", defaultValue = "")HttpSession session) {
+		User host = (User) session.getAttribute("user");
+		if (host == null)
+			return null;
+		return host.getAssociatedEvents();
 	}
 }
