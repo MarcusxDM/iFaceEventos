@@ -32,18 +32,35 @@ myapp.controller('createEventController', ['$scope', '$log', 'eventService', fun
     }
 }]);
 
-
-myapp.service('eventService', ['$http', '$log', function ($http, $log) {
-    this.createEvent = function (event) {
+myapp.controller('eventMenuController', ['$scope', '$log', '$http', function ($scope, $log, $http) {
+    $scope.events = [];
+    $scope.q ='';
+    $scope.loadEvents = function (event) {
         $http({
-            url: '/event/create2',
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            data: event
+            url: '/event/get-associated',
+            method: 'GET'
         }).success(function (data) {
+            $scope.events = data;
+        });
+    };
+    $scope.loadEvents();
+}]);
+
+myapp.controller('hostEventController', ['$scope', '$log', '$http', '$location', function ($scope, $log, $http, $location) {
+    $log.log("aaaaa");
+    $scope.eventId = $location.search().eventId;
+    $log.log($scope.eventId);
+    $scope.event = {};
+    $scope.loadEvent = function (event) {
+        $http({
+            url: 'event/get?eventid=' + $scope.eventId,
+            method: 'GET'
+        }).success(function (data) {
+            $scope.event = data;
             $log.log(data);
         });
-    }
+    };
+    $scope.loadEvent();
 }]);
 
 $('.datepicker').pickadate({

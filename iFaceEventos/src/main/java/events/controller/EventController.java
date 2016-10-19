@@ -66,7 +66,7 @@ public class EventController {
 		User host = (User) session.getAttribute("user");
 		Event event = eventDAO.getEventById(eventId);
 		
-		return "redirect:/event/profile-event-host.html";
+		return "redirect:/event/profile-event-host.html?eventId="+ eventId;
 	}
 	
 	@RequestMapping("/profile-guest")
@@ -75,7 +75,7 @@ public class EventController {
 		User host = (User) session.getAttribute("user");
 		Event event = eventDAO.getEventById(eventId);
 		
-		return "redirect:/event/profile-event.html";
+		return "redirect:/event/profile-event.html?eventId=" + eventId;
 	}
 	
 	@RequestMapping("/edit")
@@ -171,7 +171,7 @@ public class EventController {
 	 */
 	@RequestMapping(value = "/get-associated")
 	@ResponseBody
-	public List<Event> getAssociated(@RequestParam(value = "session", defaultValue = "")HttpSession session) {
+	public List<Event> getAssociated(HttpSession session) {
 		User host = (User) session.getAttribute("user");
 		if (host == null)
 			return null;
