@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 
-<html>
+<html ng-app="event">
 
 <head>
 
     <link rel="stylesheet" type="text/css" href="css/material.min.css" />
-
     <link rel="stylesheet" type="text/css" href="css/menu-event.css" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
+    <link rel="stylesheet" type="text/css" href="../css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <meta charset="UTF-8">
 
@@ -20,7 +17,7 @@
 
  
 
-<body>
+<body ng-controller="hostEventController">
 
     <div class="containerNProfile">
 
@@ -52,13 +49,13 @@
 
                             <div class="input-field col s6">
 
-                                <h5>Event's Name</h5>
+                                <h5>{{event.name}}</h5>
 
-                                <h6>Event's Host</h6></br>      
+                                <h6>Host Name: {{event.host.name}}</h6></br>
 
                                 <h5>Description</h5>
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel ipsum porta urna sagittis vulputate. Mauris auctor sit amet metus eget ornare. Sed a lorem et eros consectetur bibendum. Pellentesque tristique, erat at dapibus pulvinar, justo neque consectetur ipsum, id varius velit augue vitae nisi. Nunc ullamcorper ipsum eget felis suscipit luctus. Suspendisse nisi nunc, mollis quis leo vel, laoreet vehicula quam. Donec cursus urna ipsum, id tempor mauris aliquet id. Nulla in efficitur velit. Sed eleifend fermentum ipsum, nec ultrices risus elementum sed. Quisque at metus sed sapien tempus convallis non eu nisl.</p>                                                                
+                                <p>{{event.description}}</p>
 
                             </div>
 
@@ -77,6 +74,9 @@
                                         <td>Guest List</td>
 
                                       </tr>
+                                        <tr ng-repeat="guest in event.guests">
+                                            <td>{{guest.name}}</td>
+                                        </tr>
 
   
 
@@ -105,6 +105,9 @@
                                             <td>Location</td>
 
                                           </tr>
+                                            <tr>
+                                                <td>{{event.location}}</td>
+                                            </tr>
 
   
 
@@ -133,17 +136,12 @@
 
     </div>
 
-   
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
 
-    </script>
-
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">        
-
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+               <script src="../js/jquery-3.1.1.min.js"></script>
+               <script src="../js/angular.min.js"></script>
+               <script src="../js/materialize.min.js"></script>
+               <script src="../js/event/event-app.js"></script>
 
  
 

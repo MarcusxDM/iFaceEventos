@@ -37,7 +37,7 @@ public class User {
 	
 	@NotNull
 	public String email;
-	
+
 	@JsonIgnore
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "guests")
 	public List<Event> associatedEvents = new ArrayList<Event>();

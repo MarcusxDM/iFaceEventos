@@ -24,7 +24,7 @@ public class EventDAO {
 	@PersistenceContext
 	private EntityManager entityManager;
 	
-	UserDAO userDAO;
+	private UserDAO userDAO;
 
 	public void save(Event event, User host) {
 		entityManager.persist(event);
@@ -32,7 +32,7 @@ public class EventDAO {
 		host.addAssociatedEvents(event);
 		event.addGuests(host);
 
-		userDAO.update(host);
+//		userDAO.update(host);
 		return;
 	}
 
@@ -62,11 +62,10 @@ public class EventDAO {
 		}
 	}
 	
-	public void addGuest(Event event, User guest){
-		addEvents(event, guest);
-
-		event.addGuests(guest);
-		guest.addAssociatedEvents(event);
+	public void addGuest(Event event, String guest){
+		User user = new User();
+		user.setUsername(guest);
+		event.addGuests(user);
 	}
 
 	public Event getEventById(int id) {
@@ -76,7 +75,7 @@ public class EventDAO {
 	@SuppressWarnings("unchecked")
 	public List<Event> getEventByName(String name) throws Exception {
 		List<Event> query;
-		query = entityManager.createQuery("from Event where name LIKE %name%").setParameter("name", name).getResultList();
+		query = entityManager.createQuery("from Event where name LIKE :name").setParameter("name", "%"+name+"%").getResultList();
 		
 		if ( query == null) {
 			throw new EventNotFoundException("This event was not found.\n");

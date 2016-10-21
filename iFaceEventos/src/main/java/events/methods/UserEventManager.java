@@ -103,7 +103,7 @@ public class UserEventManager {
 			throw new InvalidDataException("Username or Password incorrect!\n");
 		}
 		if (u.getPassword().equals(senha)) {
-			return u.getId();
+//			return u.getId();
 		}
 		return -1;
 	}
@@ -123,12 +123,12 @@ public class UserEventManager {
 		}
 	}
 
-	public void verifyUserEmptyField(User user) throws Exception {
-		if (user.getName().equals("") || user.getLogin().equals("") || user.getEmail().equals("")
-				|| user.getPassword().equals("")) {
-			throw new EmptyFieldException("You left an empty field!\n");
-		}
-	}
+//	public void verifyUserEmptyField(User user) throws Exception {
+//		if (user.getName().equals("") || user.getLogin().equals("") || user.getEmail().equals("")
+//				|| user.getPassword().equals("")) {
+//			throw new EmptyFieldException("You left an empty field!\n");
+//		}
+//	}
 
 	public User getUserByName(String name) throws Exception {
 		session = sessionFactory.openSession();
@@ -324,12 +324,12 @@ public class UserEventManager {
 		case 3:
 			System.out.println("Change event's date:");
 			String date = stringReader.nextLine();
-			event.setDate(date);
+//			event.setDate(date);
 			break;
 		case 4:
 			System.out.println("Change event's hour:");
 			String hour = stringReader.nextLine();
-			event.setHour(hour);
+//			event.setHour(hour);
 			break;
 
 		default:

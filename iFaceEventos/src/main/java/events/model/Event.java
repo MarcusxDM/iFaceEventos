@@ -4,14 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -32,11 +25,11 @@ public class Event {
 	
 	@NotNull
 	public Date date;
-	
-	@JsonIgnore
+
+
 	@ManyToMany
 	@JoinTable(name = "user_event", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_username"))
-	public List<User> guests = new ArrayList<User>();
+	public List<User> guests = new ArrayList<>();
 
 	@ManyToOne
 	protected User host;
@@ -101,12 +94,11 @@ public class Event {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
 
 	public List<User> getGuests() {
 		return guests;
 	}
-	
+
 	public void setGuests(List<User> guests) {
 		this.guests = guests;
 	}
