@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/material.min.css" />
     <link rel="stylesheet" type="text/css" href="css/menu-event.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">  
 <meta charset="UTF-8">
 <title>Event</title>
@@ -24,27 +24,30 @@
                     <div class="col s12">
                         <div class="row">
                             <div class="input-field col s6">
-                            	<a name="Eventname" id="name" type="text" ng-model="q"><label for="name">List of events I participate:
+                            	<a name="Eventname" id="name" type="text"><label for="name">List of events I participate:
                             	</label></a>                              									
                             </div>
                         </div>
+
+                        <ul>
+                            <li ng-repeat="event in events">
+                                <a style="color: white" href="/event/profile-host?eventId={{event.id}}">{{event.name}}</a>
+                            </li>
+                        </ul>
 
 
                         
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">search</i> 
-                                <input placeholder="Event's name"
-                                    name="Eventsearch" id="search" type="text"
-                                    class="validate" ng-model="Event.search"
-                                    ng-required="true" ng-minlength="2"> 
-                                    <label for="search"></label>
+                                <input placeholder="Event's name" name="Eventsearch" id="search" type="text" class="validate" ng-model="q">
+                                <label for="search"></label>
                             </div>
                         
                     </div>
                 </div>
             <div>
                 <ul>
-                    <li ng-repeat="event in events | filter:q">
+                    <li ng-repeat="event in allEvents | filter:q as results">
                         <a style="color: white" href="/event/profile-host?eventId={{event.id}}">{{event.name}}</a>
                     </li>
                 </ul>

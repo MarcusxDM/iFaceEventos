@@ -62,11 +62,10 @@ public class EventDAO {
 		}
 	}
 	
-	public void addGuest(Event event, User guest){
-		addEvents(event, guest);
-
-		event.addGuests(guest);
-		guest.addAssociatedEvents(event);
+	public void addGuest(Event event, String guest){
+		User user = new User();
+		user.setUsername(guest);
+		event.addGuests(user);
 	}
 
 	public Event getEventById(int id) {

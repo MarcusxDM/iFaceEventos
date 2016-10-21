@@ -26,12 +26,12 @@ public class Event {
 	@NotNull
 	public Date date;
 
-	@JsonIgnore
+
 	@ManyToMany
 	@JoinTable(name = "user_event", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_username"))
 	public List<User> guests = new ArrayList<>();
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	protected User host;
 
 	public Event() {

@@ -27,8 +27,8 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">label</i>
-                                <input name="name" id="eventName" type="text" ng-model="name" ng-required="true" ng-minlength='2' class="validate">
-                                <label for="eventName">Name</label>
+                                <input name="name" placeholder="Name" id="eventName" type="text" ng-model="name" ng-required="true" ng-minlength='2' class="validate">
+                                <!--<label for="eventName">Name</label>-->
                                 <div class="alert alert-danger" ng-if="createEvent.eventName.$invalid && createEvent.eventName.$dirty">
                                     <div ng-if="createEvent.eventName.$error.required">Please, fill this space. </div>
                                     <div ng-if="createEvent.eventName.$error.minlength">It needs to have at least 2 caracteres.</div>
@@ -38,8 +38,8 @@
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">subject</i> 
-                                <input name="description" id="eventDescription" type="text" class="validate" ng-model="description" ng-minlength='2' ng-required="true">
-                                <label for="eventDescription">Description</label>
+                                <input name="description" placeholder="Description" id="eventDescription" type="text" class="validate" ng-model="description" ng-minlength='2' ng-required="true">
+                                <!--<label for="eventDescription">Description</label>-->
                                 <div class="alert alert-danger" ng-if="createEvent.eventDescription.$invalid && createEvent.eventDescription.$dirty">
                                     <div ng-if="createEvent.eventDescription.$error.required">Please, fill this space. </div>
                                     <div ng-if="createEvent.eventDescription.$error.minlength">It needs to have at least 2 caracteres.</div>
@@ -67,8 +67,8 @@
 
                         <div class="input-field col s12">
                             <i class="material-icons prefix">location_on</i>
-                            <input name="location" type="text" id="eventPlace" class="validate" ng-model="place" ng-required="true" ng-minlength='2'>
-                            <label for="eventPlace">Place</label>
+                            <input name="location" placeholder="Place" type="text" id="eventPlace" class="validate" ng-model="place" ng-required="true" ng-minlength='2'>
+                            <!--<label for="eventPlace">Place</label>-->
                             <div class="alert alert-danger" ng-if="createEvent.eventPlace.$invalid && createEvent.eventPlace.$dirty">
                                 <div ng-if="createEvent.eventPlace.$error.required">Please, fill this space.</div>
                                 <div ng-if="createEvent.eventPlace.$error.minlength">It needs to have at least 2 caracteres.</div>

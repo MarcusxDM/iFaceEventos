@@ -25,7 +25,7 @@ public class EventController {
 	@Autowired
 	private EventDAO eventDAO;
 	
-	private UserDAO userDAO;
+	private UserDAO userDAO = new UserDAO();
 
 	@RequestMapping(value="/menu", method = RequestMethod.GET)
 	public String menu() {
@@ -62,11 +62,18 @@ public class EventController {
 	
 	@RequestMapping("/profile-host")
 	public String profileHost(HttpSession session, @RequestParam(value = "eventId")int eventId) {
-		
+
 		User host = (User) session.getAttribute("user");
+		if(host == null) {
+			return "redirect:/index.html";
+		}
 		Event event = eventDAO.getEventById(eventId);
-		
-		return "redirect:/event/profile-event-host.html?eventId="+ eventId;
+		if(host.getUsername().equals(event.getHost().getUsername())) {
+			return "redirect:/event/profile-event-host.html#"+ eventId;
+		} else {
+			return "redirect:/event/profile-event.html#" + eventId;
+		}
+
 	}
 	
 	@RequestMapping("/profile-guest")
@@ -75,36 +82,53 @@ public class EventController {
 		User host = (User) session.getAttribute("user");
 		Event event = eventDAO.getEventById(eventId);
 		
-		return "redirect:/event/profile-event.html?eventId=" + eventId;
+		return "redirect:/event/profile-event.html#" + eventId;
+	}
+
+	@RequestMapping("/event-edit")
+	public String editEvent(@RequestParam(value = "eventId")int eventId) {
+		System.out.println(eventId);
+		return "redirect:/event/edit-event.html#" + eventId;
 	}
 	
 	@RequestMapping("/edit")
-	public String edit(HttpSession session, String guestUsername, int eventId, String name, String description, String location, Date date) {
+	public String edit(HttpSession session, String guestUsername, int eventId, String name, String description, String location, String date, String time) {
 		
 		User host = (User) session.getAttribute("user");
 		Event event = eventDAO.getEventById(eventId);
 		User newGuest = null;
-		
+
+		Date formatedDate = null;
+		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		String dateString = date + ' ' + time;
+		try {
+			formatedDate = dt.parse(dateString);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
 		if (host == null)
 			return "redirect:/error/set-error?error=You are not logged in!";
 		if (event == null)
 			return "redirect:/error/set-error?error=Event not found!";
-		
-		if (guestUsername != null)
-			newGuest = userDAO.getByUsername(guestUsername);
-			eventDAO.addGuest(event, newGuest);
-		
+
+		if (guestUsername.length() > 0) {
+			try {
+				eventDAO.addGuest(event, guestUsername);
+			} catch (Exception e) {
+				return "redirect:/error/set-error?error=User not found!";
+			}
+		}
+
 		// Any blank form won't get edited (Previous event's information will be intact)
 		if (name != null)
-			event.setName(name);
-		if (guestUsername != null)
 			event.setName(name);
 		if (description != null)
 			event.setDescription(description);
 		if (location != null)
 			event.setLocation(location);
 		if (date != null)
-			event.setDate(date);
+			event.setDate(formatedDate);
 		
 		try {
 			eventDAO.update(event);
@@ -143,12 +167,18 @@ public class EventController {
 
 	/*
 	 * returns a JSON containing the event attributes
-	 * http://localhost:8080/event/get?eventid=0
+	 * http://localhost:8080/event/get?eventId=0
 	 */
 	@RequestMapping("/get")
 	@ResponseBody
-	public Event get(@RequestParam(value = "eventid", defaultValue = "") int id) {
+	public Event get(@RequestParam(value = "eventId", defaultValue = "") int id) {
 		return eventDAO.getEventById(id);
+	}
+
+	@RequestMapping("/get-all")
+	@ResponseBody
+	public List<Event> getAll() {
+		return eventDAO.getAll();
 	}
 
 	/*
