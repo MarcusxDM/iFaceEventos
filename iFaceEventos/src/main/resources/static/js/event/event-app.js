@@ -1,4 +1,4 @@
-var myapp = angular.module('event', []);
+var myapp = angular.module('event', ['ui.calendar']);
 
 myapp.controller('createEventController', ['$scope', '$log', function ($scope, $log) {
     $scope.event = {};
@@ -109,16 +109,29 @@ myapp.controller('editEventController', ['$scope', '$log', '$http', '$location',
 
     $scope.loadEvent();
 }]);
-myapp.controller('eventMenuController', ['$scope', '$log', '$http', function ($scope, $log, $http) {
+myapp.controller('eventMenuController', ['$scope', '$log', '$http', '$timeout', function ($scope, $log, $http, $timeout) {
     $scope.events = [];
     $scope.allEvents = [];
     $scope.q='';
+    $scope.host = {};
     $scope.loadEvents = function (event) {
         $http({
-            url: '/event/get-associated',
+            url: '/event/get-managed',
             method: 'GET'
         }).success(function (data) {
             $scope.events = data;
+            $scope.host = $scope.events[0].host;
+            $log.log($scope.host);
+            for (var i = 0; i < $scope.events.length; ++i ) {
+                $scope.addCalendarEvent($scope.events[i], 0, '#00f');
+            }
+            $('#calendar').fullCalendar('refetchEvents');
+            // $timeout(function () {
+            //     for (var i = 0; i < $scope.events.length; ++i ) {
+            //         $scope.addCalendarEvent($scope.events[i], 0, '#00f');
+            //     }
+            //     $('#calendar').fullCalendar('refetchEvents');
+            // }, 500)
         });
     };
     $scope.loadAllEvents = function () {
@@ -127,10 +140,50 @@ myapp.controller('eventMenuController', ['$scope', '$log', '$http', function ($s
             method: 'GET'
         }).success(function (data) {
             $scope.allEvents = data;
+            $timeout(function () {
+                for (var i = 0; i < $scope.allEvents.length; ++i ) {
+                    if($scope.allEvents[i].host.username != $scope.host.username) {
+                        $scope.addCalendarEvent($scope.allEvents[i], 1, '#000');
+                    }
+                }
+                $('#calendar').fullCalendar('refetchEvents');
+            }, 500)
         });
     };
     $scope.loadEvents();
     $scope.loadAllEvents();
+
+    $scope.uiConfig = {
+        calendar:{
+            height: 550,
+            header:{
+                left: 'title',
+                center: '',
+                right: 'today prev,next'
+            }
+        }
+    };
+
+    var date = new Date(),
+        d = date.getDate(),
+        m = date.getMonth(),
+        y = date.getFullYear();
+    $scope.eventSources = [{
+        events: []
+    }, {
+        events: []
+    }];
+
+    $scope.addCalendarEvent = function (event, index, color) {
+        $scope.eventSources[index].events.push({
+            title: event.name,
+            start: new Date(event.date),
+            url: '/event/profile-host?eventId='+event.id,
+            stick: true,
+            color: color
+        });
+    };
+
 }]);
 
 myapp.controller('hostEventController', ['$scope', '$log', '$http', '$location', function ($scope, $log, $http, $location) {
