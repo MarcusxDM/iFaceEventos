@@ -187,7 +187,7 @@ public class EventController {
 	 */
 	@RequestMapping(value = "/get-managed")
 	@ResponseBody
-	public List<Event> getManaged(@RequestParam(value = "session", defaultValue = "")HttpSession session) {
+	public List<Event> getManaged(HttpSession session) {
 		User host = (User) session.getAttribute("user");
 		if (host == null)
 			return null;
