@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="iFaceEventos:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="events.war">
+      <element id="artifact" artifact-name="iFaceEventos:war exploded" />
+    </root>
+  </artifact>
+</component>
