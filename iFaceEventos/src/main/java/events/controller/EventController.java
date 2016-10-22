@@ -114,8 +114,8 @@ public class EventController {
 
 		if (host == null)
 			return "redirect:/error/set-error?error=You are not logged in!";
-		if (event.getHost() != host)
-			return "redirect:/error/set-error?error=You are not the host!";
+//		if (event.getHost() != host)
+//			return "redirect:/error/set-error?error=You are not the host!";
 		if (event == null)
 			return "redirect:/error/set-error?error=Event not found!";
 
