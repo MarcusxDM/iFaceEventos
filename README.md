@@ -20,12 +20,13 @@ This module of iFace implements classes and methods related to events. Informati
 
 1. Import as a Maven Project;
 
-2. Change application.properties in src/main/resources/ to match your DataBase;
+2. Create a MySQL Schema
 
-3. For the first run, use hibernate.hbm2ddl.auto: create;
+3. Change application.properties in src/main/resources/ to match your DataBase;
 
-4. For the next runs, use hibernate.hbm2ddl.auto: update.
+4. For the first run, use hibernate.hbm2ddl.auto: create;
 
+5. For the next runs, use hibernate.hbm2ddl.auto: update.
 
 ####Comments:
 This module is still in development. The Team Coders are using Eclipse, Maven and Hibernate (with Spring Boot framework) tools to develop this module for the back-end and HTML5, CSS and Angular.js for the front-end.
