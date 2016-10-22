@@ -78,22 +78,27 @@ public class EventController {
 	
 	@RequestMapping("/profile-guest")
 	public String profileEvent(HttpSession session, @RequestParam(value = "eventId")int eventId) {
-		
 		User host = (User) session.getAttribute("user");
+		if(host == null) {
+			return "redirect:/index.html";
+		}
 		Event event = eventDAO.getEventById(eventId);
 		
 		return "redirect:/event/profile-event.html#" + eventId;
 	}
 
 	@RequestMapping("/event-edit")
-	public String editEvent(@RequestParam(value = "eventId")int eventId) {
-		System.out.println(eventId);
+	public String editEvent(HttpSession session, @RequestParam(value = "eventId")int eventId) {
+		User host = (User) session.getAttribute("user");
+		if(host == null) {
+			return "redirect:/index.html";
+		}
 		return "redirect:/event/edit-event.html#" + eventId;
 	}
 	
 	@RequestMapping("/edit")
 	public String edit(HttpSession session, String guestUsername, int eventId, String name, String description, String location, String date, String time) {
-		
+
 		User host = (User) session.getAttribute("user");
 		Event event = eventDAO.getEventById(eventId);
 		User newGuest = null;
@@ -109,10 +114,17 @@ public class EventController {
 
 		if (host == null)
 			return "redirect:/error/set-error?error=You are not logged in!";
+		if (event.getHost() != host)
+			return "redirect:/error/set-error?error=You are not the host!";
 		if (event == null)
 			return "redirect:/error/set-error?error=Event not found!";
 
 		if (guestUsername.length() > 0) {
+			User user = new User();
+			user.setUsername(guestUsername);
+			if(event.guests.contains(user)) {
+				return "redirect:/error/set-error?error=User already invited!";
+			}
 			try {
 				eventDAO.addGuest(event, guestUsername);
 			} catch (Exception e) {
@@ -140,9 +152,12 @@ public class EventController {
 
 	@RequestMapping("/delete")
 	public String delete(HttpSession session, int eventId) {
-
+		User host = (User) session.getAttribute("user");
 		Event event = eventDAO.getEventById(eventId);
-		
+		if(host == null || event.getHost() != host) {
+			return "redirect:/index.html";
+		}
+
 		if (event == null)
 			return "redirect:/error/set-error?error=Event not found!";
 

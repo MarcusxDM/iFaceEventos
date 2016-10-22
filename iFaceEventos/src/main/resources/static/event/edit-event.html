@@ -21,29 +21,29 @@
             <div class="divider"></div>
         </div>
 
-        <form action="/event/edit" method="post" name="createEvent" novalidate>
+        <form action="/event/edit" method="post" name="createEvent">
             <input type="number" name="eventId" ng-model="id" style="display: none">
             <div class="row">
                 <div class="col s12">
                     <div class="row">
                         <div class="input-field col s6">
                             <i class="material-icons prefix">label</i>
-                            <input name="name" placeholder="Name" id="eventName" type="text" ng-model="name" ng-required="true" ng-minlength='2' class="validate">
+                            <input name="name" placeholder="Name" id="eventName" type="text" ng-model="name" ng-required="true" ng-minlength='2' class="validate" required>
                             <label for="eventName">Name</label>
-                            <div class="alert alert-danger" ng-if="createEvent.eventName.$invalid && createEvent.eventName.$dirty">
-                                <div ng-if="createEvent.eventName.$error.required">Please, fill this space. </div>
-                                <div ng-if="createEvent.eventName.$error.minlength">It needs to have at least 2 caracteres.</div>
+                            <div class="alert alert-danger" ng-if="createEvent.eventName.$invalid && createEvent.name.$dirty">
+                                <div ng-if="createEvent.name.$error.required">Please, fill this space. </div>
+                                <div ng-if="createEvent.name.$error.minlength">It needs to have at least 2 caracteres.</div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s6">
                                 <i class="material-icons prefix">subject</i>
-                                <input name="description" placeholder="Description" id="eventDescription" type="text" class="validate" ng-model="description" ng-minlength='2' ng-required="true">
+                                <input name="description" placeholder="Description" id="eventDescription" type="text" class="validate" ng-model="description" ng-minlength='2'>
                                 <label for="eventDescription">Description</label>
-                                <div class="alert alert-danger" ng-if="createEvent.eventDescription.$invalid && createEvent.eventDescription.$dirty">
-                                    <div ng-if="createEvent.eventDescription.$error.required">Please, fill this space. </div>
-                                    <div ng-if="createEvent.eventDescription.$error.minlength">It needs to have at least 2 caracteres.</div>
+                                <div class="alert alert-danger" ng-if="createEvent.description.$invalid && createEvent.description.$dirty">
+                                    <div ng-if="createEvent.description.$error.required">Please, fill this space. </div>
+                                    <div ng-if="createEvent.description.$error.minlength">It needs to have at least 2 caracteres.</div>
                                 </div>
                             </div>
                         </div>
@@ -59,26 +59,26 @@
                             </div>
                             <div class="input-field col s6">
                                 <label for="time">Time</label>
-                                <input id="time" name="time" placeholder="Time" class="timepicker" type="text" ng-model="time" ng-required="true">
-                                <div class="alert alert-danger" ng-if="createEvent.eventTime.$invalid && createEvent.eventTime.$dirty">
-                                    <div ng-if="createEvent.eventTime.$error.required">Please, fill this space. </div>
+                                <input id="time" name="time" placeholder="Time" class="timepicker" type="text" ng-model="time">
+                                <div class="alert alert-danger" ng-if="createEvent.time.$invalid && createEvent.time.$dirty">
+                                    <div ng-if="createEvent.time.$error.required">Please, fill this space. </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="input-field col s6">
                             <i class="material-icons prefix">location_on</i>
-                            <input name="location" type="text" placeholder="Place" id="eventPlace" class="validate" ng-model="location" ng-required="true" ng-minlength='2'>
+                            <input name="location" type="text" placeholder="Place" id="eventPlace" class="validate" ng-model="location" ng-required="true" ng-minlength='2' required>
                             <label for="eventPlace">Place</label>
-                            <div class="alert alert-danger" ng-if="createEvent.eventPlace.$invalid && createEvent.eventPlace.$dirty">
-                                <div ng-if="createEvent.eventPlace.$error.required">Please, fill this space.</div>
-                                <div ng-if="createEvent.eventPlace.$error.minlength">It needs to have at least 2 caracteres.</div>
+                            <div class="alert alert-danger" ng-if="createEvent.location.$invalid && createEvent.location.$dirty">
+                                <div ng-if="createEvent.location.$error.required">Please, fill this space.</div>
+                                <div ng-if="createEvent.location.$error.minlength">It needs to have at least 2 caracteres.</div>
                             </div>
                         </div>
 
                         <div class="input-field col s6">
                             <i class="material-icons prefix">search</i>
-                            <input placeholder="Add User" name="guestUsername" id="search" type="text" class="validate" ng-model="User.search" ng-required="true" ng-minlength="2">
+                            <input placeholder="Add User" name="guestUsername" id="search" type="text" class="validate" ng-model="User.search" ng-minlength="2">
                             <!--<label for="search"></label>-->
                         </div>
 

@@ -6,24 +6,12 @@ myapp.controller('createEventController', ['$scope', '$log', function ($scope, $
     $scope.description = '';
     $scope.date = '';
     $scope.location = '';
-    $scope.formSubmit = function () {
-        if(! $scope.createEvent.$valid) {
-            $scope.createEvent.name.$setDirty();
-            $scope.createEvent.description.$setDirty();
-            $scope.createEvent.date.$setDirty();
-            $scope.createEvent.time.$setDirty();
-            $scope.createEvent.place.$setDirty();
-        } else {
-            $scope.date = $scope.event.date;
-        }
-    };
 
     $scope.clear = function () {
-        $scope.event.name = '';
-        $scope.event.description = '';
-        $scope.event.date = '';
-        $scope.event.time = '';
-        $scope.event.place = '';
+        $scope.name = '';
+        $scope.description = '';
+        $scope.time = '';
+        $scope.place = '';
         $scope.createEvent.name.$setPristine();
         $scope.createEvent.description.$setPristine();
         $scope.createEvent.date.$setPristine();
@@ -54,14 +42,8 @@ myapp.controller('editEventController', ['$scope', '$log', '$http', '$location',
     $scope.clear = function () {
         $scope.name = '';
         $scope.description = '';
-        $scope.date = '';
         $scope.time = '';
         $scope.location = '';
-        $scope.createEvent.name.$setPristine();
-        $scope.createEvent.description.$setPristine();
-        $scope.createEvent.date.$setPristine();
-        $scope.createEvent.time.$setPristine();
-        $scope.createEvent.location.$setPristine();
     };
     $scope.event1 = [];
     $scope.eventId = $location.path();
@@ -206,7 +188,13 @@ myapp.controller('hostEventController', ['$scope', '$log', '$http', '$location',
 $('.datepicker').pickadate({
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15, // Creates a dropdown of 15 years to control year
-    format: 'dd/mm/yyyy'
+    format: 'dd/mm/yyyy',
+    min: new Date(),
+    clear: '',
+    onStart: function() {
+        var date = new Date();
+        this.set('select', [date.getFullYear(), date.getMonth(), date.getDate()]);
+    }
 });
 
 $('.timepicker').pickatime({
