@@ -15,7 +15,7 @@
  
         <div class="signup-screen">
             <div class="space-bot text-center">
-                <img src="https://pbs.twimg.com/media/Cu3YQX3WgAAzNXm.jpg:large"
+                <img src="iFace-logo.png"
                     alt="Logo" style="width: 128px; height: 128px;">
                 <h1 class="nprofileTitle">Event Menu</h1>
                 <div class="divider"></div>
@@ -26,15 +26,15 @@
                         <div class="row">
                             <div class="input-field col s6">
                             	<a name="Eventname" id="name" type="text"><label for="name">List of events I participate:
-                            	</label></a>                              									
+                            	</label><br></a>                              									
                             </div>
                         </div>
 
-                        <ul>
-                            <li ng-repeat="event in events">
-                                <a style="color: white" href="/event/profile-host?eventId={{event.id}}">{{event.name}}</a>
-                            </li>
-                        </ul>
+	                        <ul>
+	                            <li ng-repeat="event in events">
+	                                <a style="color: white" id="name" href="/event/profile-host?eventId={{event.id}}">{{event.name}}</a>
+	                            </li>
+	                        </ul>
 
 
                         

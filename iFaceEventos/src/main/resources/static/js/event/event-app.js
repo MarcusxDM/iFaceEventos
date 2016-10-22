@@ -116,7 +116,7 @@ myapp.controller('eventMenuController', ['$scope', '$log', '$http', '$timeout', 
     $scope.host = {};
     $scope.loadEvents = function (event) {
         $http({
-            url: '/event/get-managed',
+            url: '/event/get-associated',
             method: 'GET'
         }).success(function (data) {
             $scope.events = data;
@@ -188,6 +188,7 @@ myapp.controller('eventMenuController', ['$scope', '$log', '$http', '$timeout', 
 
 myapp.controller('hostEventController', ['$scope', '$log', '$http', '$location', function ($scope, $log, $http, $location) {
     $scope.eventId = $location.path();
+    $log.log("aaaa " + $scope.eventId);
     $scope.id = $scope.eventId.substr(1);
     $scope.event = {};
     $scope.loadEvent = function (event) {
