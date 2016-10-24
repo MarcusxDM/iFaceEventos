@@ -30,5 +30,3 @@ This module of iFace implements classes and methods related to events. Informati
 
 ####Comments:
 This module is still in development. The Team Coders are using Eclipse, Maven and Hibernate (with Spring Boot framework) tools to develop this module for the back-end and HTML5, CSS and Angular.js for the front-end.
-
-
